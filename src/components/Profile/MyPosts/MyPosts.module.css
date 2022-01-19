@@ -1,0 +1,13 @@
+.content {
+    background-color: burlywood;
+}
+
+.item {
+    color: green;
+}
+
+.item.active{
+    color: #536689;
+}
+
+
