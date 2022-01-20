@@ -3,14 +3,19 @@ import './Post.module.css';
 import classes from './Post.module.css'
 
 
-function Post() {
+type PostPropsType = {
+    message: string,
+    likesCount: number
+}
+
+function Post(props: PostPropsType) {
     return (
         <div className={classes.posts}>
             <div className={classes.item}>
                 <img src='https://socialvk.ru/wp-content/uploads/avatarka-pustaya-vk_20.jpg'/>
-                post 1
+                {props.message}
                 <div>
-                    <span>like</span>
+                    <span>like {props.likesCount}</span>
                 </div>
             </div>
         </div>
