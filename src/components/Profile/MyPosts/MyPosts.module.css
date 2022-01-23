@@ -1,13 +1,18 @@
 .content {
     background-color: burlywood;
+    padding: 10px;
 }
 
 .item {
     color: green;
 }
 
-.item.active{
+.item.active {
     color: #536689;
+}
+
+.posts {
+    margin-top: 10px;
 }
 
 
