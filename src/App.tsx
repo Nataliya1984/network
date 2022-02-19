@@ -8,27 +8,35 @@ import {BrowserRouter, Route,Routes} from 'react-router-dom';
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
+import { RootStateType} from "./components/redux/state";
 
 
-function App(props:any) {
+type AppPropsType ={
+    state: RootStateType
+    addPost:(postMessage:string)=>void
+}
+
+function App(props:AppPropsType) {
+
     return (
-        <BrowserRouter>
             <div className='app-wrapper'>
                 <Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Routes>
-                        <Route path='/profile' element={<Profile/>}/>
-                        <Route path='/dialogs/*' element={<Dialogs/>}/>
-                        <Route path='/news' element={<News/>}/>
-                        <Route path='/music' element={<Music/>}/>
-                        <Route path='/settings' element={<Settings/>}/>
+                        <Route path='/profile/*' element={<Profile state={props.state.profilePage}
+                                                            addPost={props.addPost}/>}/>
+                        <Route path='/dialogs/*' element={<Dialogs state={props.state.dialogsPage} />}/>
+                        <Route path='/news/*' element={<News/>}/>
+                        <Route path='/music/*' element={<Music/>}/>
+                        <Route path='/settings/*' element={<Settings/>}/>
                     </Routes>
                 </div>
             </div>
-        </BrowserRouter>
     );
 }
 
 
 export default App;
+
+

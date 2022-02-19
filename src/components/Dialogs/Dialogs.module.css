@@ -7,28 +7,3 @@
     display: grid;
     grid-template-columns: 4fr 8fr;
 }
-
-.dialogsItems {
-    padding: 10px;
-}
-
-.dialogsItems .active {
-    color: gold;
-}
-
-.dialog {
-    padding-top: 5px;
-}
-
-.messages {
-    padding: 10px;
-}
-
-.message {
-    padding-top: 5px;
-}
-
-.activeLink{
-    color: gold;
-}
-

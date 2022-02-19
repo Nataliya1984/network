@@ -3,12 +3,14 @@ import './Post.module.css';
 import classes from './Post.module.css'
 
 
-type PostPropsType = {
+export type PostPropsType = {
     message: string,
-    likesCount: number
+    likesCount: number,
+    id: number,
 }
 
 function Post(props: PostPropsType) {
+
     return (
         <div className={classes.posts}>
             <div className={classes.item}>

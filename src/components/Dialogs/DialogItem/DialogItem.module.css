@@ -1,0 +1,11 @@
+.dialog {
+    margin: 10px;
+}
+
+.dialog .active {
+    color: gold;
+}
+
+.activeLink{
+    color: gold;
+}
