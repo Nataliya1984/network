@@ -10,15 +10,15 @@ type DialogsPropsType ={
 
 function Dialogs(props: DialogsPropsType) {
 
-    let dialogsElements = props.state.dialogs.map((d:any) => <DialogItem name={d.name} id={d.id}/>);
+    let dialogsElements = props.state.dialogs.map((d:any) => <DialogItem key={d.id} name={d.name} id={d.id}/>);
 
-    let messagesElements = props.state.messages.map((m:any) => <Message message={m.message} id={m.id}/>);
+    let messagesElements = props.state.messages.map((m:any) => <Message key={m.id} message={m.message} id={m.id}/>);
 
     let newDialogsElement = React.createRef<HTMLTextAreaElement>();
 
     let addDialogs = () => {
         let text = newDialogsElement.current?.value;
-        alert(text)
+        console.log(text)
     }
 
     return (

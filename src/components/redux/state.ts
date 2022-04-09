@@ -1,4 +1,5 @@
 import post, {PostPropsType} from "../Profile/MyPosts/Post/Post";
+import {renderTree} from "../../render";
 
 export type MessageType ={
     id:number
@@ -16,6 +17,7 @@ export type  PostType={
 
 export type ProfilePageType={
     post:Array<PostType>
+    newPostText:string
 }
 
 export type DialogsPageType ={
@@ -40,6 +42,7 @@ export let state:RootStateType = {
             {id: 1, message: 'Hi, how are you?', likesCount: 5},
             {id: 2, message: "It's my first post", likesCount: 4},
         ],
+        newPostText:''
     },
 
     dialogsPage: {
@@ -64,11 +67,18 @@ export let state:RootStateType = {
 
 }
 
-export let addPost = (postMessage:string) => {
-    let newPost = {id: 3,
-                    message: postMessage,
+export let addPost = () => {
+    let newPost:PostType = {id: 3,
+                    message: state.profilePage.newPostText,
                     likesCount: 4};
     state.profilePage.post.push(newPost);
+    state.profilePage.newPostText=''
+renderTree(state)
+}
 
+export let updateNewPostText = (newText:string ) => {
+
+    state.profilePage.newPostText=newText
+    renderTree(state)
 }
 
