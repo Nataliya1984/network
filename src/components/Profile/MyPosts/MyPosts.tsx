@@ -2,38 +2,48 @@ import React, {KeyboardEvent,ChangeEvent, useRef} from "react";
 import './MyPosts.module.css';
 import classes from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {PostType, ProfilePageType} from "../../redux/state";
+import {
+    ActionsTypes,
+    AddPostActionType,
+    PostType,
+    ProfilePageType, StoreType,
+} from "../../redux/state";
 import {text} from "stream/consumers";
+import { addPostAC, updateNewPostTextAC } from "../../redux/profile-reducer";
 
 
 type MyPostsPropsType = {
-    state: Array<PostType>
-    addPost:()=>void
-    newPostText:string
-    updateNewPostText:(newText:string)=>void
+    // state: Array<PostType>
+    // newPostText:string
+    // dispatch:(action:ActionsTypes)=>void
+    store:StoreType
 }
 
 function MyPosts(props: MyPostsPropsType) {
+    let state = props.store.getState().profilePage
 
-
-    let postsElement = props.state.map((p: any) => <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount}/>);
+    let postsElement = state.post.map((p: any) => <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount}/>);
 
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
    let addPost = () => {
     if(newPostElement.current){
-        let text = newPostElement.current.value ;
-        props.addPost();
+      //?????????нужно ли ????????  let text = newPostElement.current.value ;
+        // props.addPost();
+        //let action ={type:'ADD-POST', newPostText:props.newPostText}
+        props.store.dispatch(addPostAC(state.newPostText))
     }
    }
 
 
    let onChengeHandler= (e:ChangeEvent<HTMLTextAreaElement>) => {
-       if(newPostElement.current){
+        if(newPostElement.current){
            let text = newPostElement.current.value;
-           props.updateNewPostText(text)
-           console.log(text)
+           //props.updateNewPostText(text)
+           // props.dispatch({type:'UPDATE-NEW-POST-TEXT', newText:text})
+            props.store.dispatch(updateNewPostTextAC(text))
        }
+
    }
 
    let onKeyPressHandler=(e:KeyboardEvent<HTMLTextAreaElement>)=>{
@@ -48,7 +58,7 @@ function MyPosts(props: MyPostsPropsType) {
                     <textarea onKeyPress={onKeyPressHandler}
                               onChange={onChengeHandler}
                               ref={newPostElement}
-                              value={props.newPostText}></textarea>
+                              value={state.newPostText}></textarea>
                 </div>
                 <div>
                     <button onClick= {addPost} >Add post</button>

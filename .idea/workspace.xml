@@ -5,14 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="74c5f86b-1cf0-4dc6-8ce5-827284704335" name="Changes" comment=" 20.01">
-      <change afterPath="$PROJECT_DIR$/src/render.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/redux/dialogs-reducer.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/redux/profile-reducer.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/redux/redux-store.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/redux/sidebar-reducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Dialogs/Dialogs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dialogs/Dialogs.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPosts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPosts.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Settings/Settings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Settings/Settings.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/redux/state.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/redux/state.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/render.tsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +58,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/redux" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -64,6 +70,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\it-camasutra_cursy\social-network\src\components\redux" />
+      <recent name="C:\it-camasutra_cursy\social-network\src" />
       <recent name="C:\it-camasutra_cursy\social-network\src\components\Profile\MyPosts\Post" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -110,7 +118,12 @@
       <workItem from="1644608021830" duration="15043000" />
       <workItem from="1645219954350" duration="4787000" />
       <workItem from="1647803278254" duration="2947000" />
-      <workItem from="1649366119366" duration="17990000" />
+      <workItem from="1649366119366" duration="22189000" />
+      <workItem from="1654718543573" duration="126000" />
+      <workItem from="1655232279893" duration="28151000" />
+      <workItem from="1655408582685" duration="978000" />
+      <workItem from="1655409656741" duration="123000" />
+      <workItem from="1655409816048" duration="21566000" />
     </task>
     <servers />
   </component>

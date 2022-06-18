@@ -1,19 +1,33 @@
 import React from 'react';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import {state} from "./components/redux/state";
+import ReactDOM from "react-dom";
 
-import {renderTree} from "./render";
+import App from "./App";
+import {store} from "./components/redux/state";
+import {BrowserRouter} from "react-router-dom";
+
+const rerenderEntireTree = () => {
+    ReactDOM.render(
+        <React.StrictMode>
+            <BrowserRouter>
+                <App store={store} />
+            </BrowserRouter>
+        </React.StrictMode>,
+        document.getElementById('root')
+    );
+}
 
 
 
+store.subscribe(()=>{
+    rerenderEntireTree()
+})
+rerenderEntireTree()
 
 
 
-
-
-
-renderTree(state)
+//state:RootStateType
 
 // ReactDOM.render(
 //   <React.StrictMode>
