@@ -2,18 +2,25 @@ import React, {ChangeEvent, KeyboardEvent} from "react";
 import classes from "./Dialogs.module.css";
 import Message from "./Massage/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import {ActionsTypes, DialogsPageType, StoreType, } from "../redux/state";
+import {ActionsTypes, DialogsPageType, MessageType, StoreType,} from "../redux/state";
 import {addMessagAC, updateNewMessagTextAC} from "../redux/dialogs-reducer";
 
 type DialogsPropsType ={
     // state:DialogsPageType
     // dispatch:(action:ActionsTypes)=>void
     // newMessagText:string
-    store:StoreType
+
+    //store:StoreType
+
+    updateNewDialogText:(text:string)=>void
+    addMessag:()=>void
+    dialogsPage:DialogsPageType
 }
 
 function Dialogs(props: DialogsPropsType) {
-    let state = props.store.getState().dialogsPage
+
+    //let state = props.store.getState().dialogsPage
+    let state = props.dialogsPage
 
     let dialogsElements = state.dialogs.map((d:any) => <DialogItem key={d.id} name={d.name} id={d.id}/>);
 
@@ -23,8 +30,9 @@ function Dialogs(props: DialogsPropsType) {
 
     let addMessag = () => {
          if(newDialogsElement.current){
-          //?????????нужно ли ????????  let text = newDialogsElement.current.value;
-            props.store.dispatch(addMessagAC(state.newMessagText))
+          //let text = newDialogsElement.current.value;
+            props.addMessag()
+            //props.store.dispatch(addMessagAC(state.newMessagText))
         }
 
     }
@@ -32,8 +40,12 @@ function Dialogs(props: DialogsPropsType) {
     const onChangeHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
       if(newDialogsElement.current){
           let text = newDialogsElement.current.value;
-         // props.updateNewDialogText(text)
-          props.store.dispatch(updateNewMessagTextAC(text))
+
+
+          props.updateNewDialogText(text)
+
+
+          //props.store.dispatch(updateNewMessagTextAC(text))
       }
     }
 

@@ -5,20 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="74c5f86b-1cf0-4dc6-8ce5-827284704335" name="Changes" comment=" 20.01">
-      <change afterPath="$PROJECT_DIR$/src/components/redux/dialogs-reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/redux/profile-reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/redux/redux-store.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/redux/sidebar-reducer.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Dialogs/DialogsContainer.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPostsContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Dialogs/Dialogs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dialogs/Dialogs.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPosts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPosts.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/Profile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Settings/Settings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Settings/Settings.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/redux/state.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/redux/state.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/render.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +54,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/redux" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/Profile/MyPosts" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -70,6 +66,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\it-camasutra_cursy\social-network\src\components\Profile\MyPosts" />
       <recent name="C:\it-camasutra_cursy\social-network\src\components\redux" />
       <recent name="C:\it-camasutra_cursy\social-network\src" />
       <recent name="C:\it-camasutra_cursy\social-network\src\components\Profile\MyPosts\Post" />
@@ -123,7 +120,11 @@
       <workItem from="1655232279893" duration="28151000" />
       <workItem from="1655408582685" duration="978000" />
       <workItem from="1655409656741" duration="123000" />
-      <workItem from="1655409816048" duration="21566000" />
+      <workItem from="1655409816048" duration="22449000" />
+      <workItem from="1655669668275" duration="22638000" />
+      <workItem from="1655831666191" duration="177000" />
+      <workItem from="1655831990433" duration="793000" />
+      <workItem from="1655832849355" duration="5169000" />
     </task>
     <servers />
   </component>

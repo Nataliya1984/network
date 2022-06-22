@@ -9,6 +9,7 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import {store, StoreType} from "./components/redux/state";
 import {Settings} from "./components/Settings/Settings";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 //import {Settings} from "./components/Settings/Settings";
 
 
@@ -31,7 +32,7 @@ function App(props: AppPropsType) {
                         // dispatch={props.store.dispatch.bind(props.store)}
                         // newPostText={state.profilePage.newPostText}
                     />}/>
-                    <Route path='/dialogs/*' element={<Dialogs
+                    <Route path='/dialogs/*' element={<DialogsContainer
                         store={props.store}
                         // state={state.dialogsPage}
                         // dispatch={props.store.dispatch.bind(props.store)}

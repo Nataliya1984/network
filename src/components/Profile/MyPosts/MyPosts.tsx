@@ -8,19 +8,26 @@ import {
     PostType,
     ProfilePageType, StoreType,
 } from "../../redux/state";
-import {text} from "stream/consumers";
 import { addPostAC, updateNewPostTextAC } from "../../redux/profile-reducer";
 
 
 type MyPostsPropsType = {
+
     // state: Array<PostType>
     // newPostText:string
     // dispatch:(action:ActionsTypes)=>void
-    store:StoreType
+
+    //store:StoreType
+
+    updateNewPostText:(text:string)=>void
+    addPost:()=>void
+    profilePage:ProfilePageType
 }
 
-function MyPosts(props: MyPostsPropsType) {
-    let state = props.store.getState().profilePage
+export const MyPosts=(props: MyPostsPropsType)=> {
+
+    //let state = props.store.getState().profilePage
+    let state = props.profilePage
 
     let postsElement = state.post.map((p: any) => <Post key={p.id} id={p.id} message={p.message} likesCount={p.likesCount}/>);
 
@@ -28,20 +35,23 @@ function MyPosts(props: MyPostsPropsType) {
 
    let addPost = () => {
     if(newPostElement.current){
-      //?????????нужно ли ????????  let text = newPostElement.current.value ;
-        // props.addPost();
+      //let text = newPostElement.current.value ;
+         props.addPost();
+
         //let action ={type:'ADD-POST', newPostText:props.newPostText}
-        props.store.dispatch(addPostAC(state.newPostText))
+        //props.store.dispatch(addPostAC(state.newPostText))
     }
    }
 
 
-   let onChengeHandler= (e:ChangeEvent<HTMLTextAreaElement>) => {
+   let onChangeHandler= (e:ChangeEvent<HTMLTextAreaElement>) => {
         if(newPostElement.current){
            let text = newPostElement.current.value;
-           //props.updateNewPostText(text)
+           props.updateNewPostText(text)
+
+
            // props.dispatch({type:'UPDATE-NEW-POST-TEXT', newText:text})
-            props.store.dispatch(updateNewPostTextAC(text))
+           // props.store.dispatch(updateNewPostTextAC(text))
        }
 
    }
@@ -56,7 +66,7 @@ function MyPosts(props: MyPostsPropsType) {
             <div>
                 <div>
                     <textarea onKeyPress={onKeyPressHandler}
-                              onChange={onChengeHandler}
+                              onChange={onChangeHandler}
                               ref={newPostElement}
                               value={state.newPostText}></textarea>
                 </div>
@@ -76,5 +86,5 @@ function MyPosts(props: MyPostsPropsType) {
     )
 }
 
-export default MyPosts;
+
 
