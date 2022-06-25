@@ -4,16 +4,16 @@ import {dialogsReducer} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 
 
-export const reduxReducer = combineReducers({
+export const ReduxReducerType = combineReducers({
     profilePage : profileReducer,
     dialogsPage: dialogsReducer,
     sidebar:sidebarReducer
 });
 
-export const store = createStore(reduxReducer);
+ export const store = createStore(ReduxReducerType);
 
 
-export type reduxReducerType = ReturnType<typeof reduxReducer>
+export type ReduxReducerType = ReturnType<typeof ReduxReducerType>
 
 // @ts-ignore
 window.store = store

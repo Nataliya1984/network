@@ -1,7 +1,7 @@
 import React from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import { StoreType} from "../redux/state";
-import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
+//import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 
 
 
@@ -13,18 +13,21 @@ type ProfilePropsType = {
 
 }
 
-function Profile(props: ProfilePropsType) {
+//function Profile(props: ProfilePropsType) {
+function Profile() {
 
     return (
         <div>
             <ProfileInfo/>
-            <MyPostsContainer
 
-                 //dispatch={props.dispatch}
-                // state={props.state.post}
-                // newPostText={props.state.newPostText}
-                store={props.store}
-            />
+            {/*<MyPostsContainer*/}
+
+            {/*     //dispatch={props.dispatch}*/}
+            {/*    // state={props.state.post}*/}
+            {/*    // newPostText={props.state.newPostText}*/}
+
+            {/*   // store={props.store}*/}
+            {/*/>*/}
 
         </div>
     )
