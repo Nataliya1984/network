@@ -29,11 +29,7 @@ function App() {
             <Navbar/>
             <div className='app-wrapper-content'>
                 <Routes>
-                    <Route path='/profile/*' element={<Profile
-                        //  state={state.profilePage}
-                        // dispatch={props.store.dispatch.bind(props.store)}
-                        // newPostText={state.profilePage.newPostText}
-                    />}/>
+                    <Route path='/profile/*' element={<Profile/>}/>
                     <Route path='/dialogs/*' element={<DialogsContainer
                         // store={props.store}
 

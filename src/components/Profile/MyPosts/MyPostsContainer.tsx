@@ -1,42 +1,30 @@
 import React from 'react';
+import {MyPosts} from "./MyPosts";
+import {addPostAC, updateNewPostTextAC} from "../../redux/profile-reducer";
+import {connect} from "react-redux";
+import {ReduxReducerType} from "../../redux/redux-store";
+import {ProfilePageType, store} from "../../redux/state";
 
-// import {MyPosts} from "./MyPosts";
-// import {addPostAC, updateNewPostTextAC} from "../../redux/profile-reducer";
-// import {StoreContext} from "../../../StoreContext";
-//
-//
-// // export type MyPostsContainerPropsType={
-// //     store:StoreType
-// // }
-//
-//
-// export const MyPostsContainer = () => {
-//
-//     return (
-//         <StoreContext.Consumer>
-//             {
-//                 (store) => {
-//
-//                     let state = store.getState().profilePage
-//
-//                     let onChangeHandler = (text: string) => {
-//                         store.dispatch(updateNewPostTextAC(text))
-//                     }
-//
-//                     let addPost = () => {
-//                         store.dispatch(addPostAC(state.newPostText))
-//                     }
-//
-//                     return <MyPosts updateNewPostText={onChangeHandler}
-//                                     addPost={addPost}
-//                                     profilePage={state}
-//
-//                     />
-//                 }
-//             }
-//         </StoreContext.Consumer>
-//
-//
-//     );
-// };
 
+export type MapStatePropsType = {
+    profilePage: ProfilePageType
+}
+
+let mapStateToProps = (state: ReduxReducerType): MapStatePropsType => {
+    return {
+        profilePage: state.profilePage
+    }
+}
+
+let mapDispatchToProps = (dispatch: any) => {
+    return {
+        updateNewPostText: (text: string) => {
+            dispatch(updateNewPostTextAC(text))
+        },
+        addPost: () => {
+            dispatch(addPostAC(store.getState().profilePage.newPostText))
+        }
+    }
+}
+
+ export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
