@@ -11,6 +11,7 @@ import {
 import { addPostAC, updateNewPostTextAC } from "../../redux/profile-reducer";
 
 
+
 type MyPostsPropsType = {
 
     // state: Array<PostType>
@@ -48,7 +49,7 @@ export const MyPosts=(props: MyPostsPropsType)=> {
         if(newPostElement.current){
            let text = newPostElement.current.value;
            props.updateNewPostText(text)
-
+            console.log(text)
 
            // props.dispatch({type:'UPDATE-NEW-POST-TEXT', newText:text})
            // props.store.dispatch(updateNewPostTextAC(text))
