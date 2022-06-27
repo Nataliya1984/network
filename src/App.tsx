@@ -10,6 +10,8 @@ import Music from "./components/Music/Music";
 import {store, StoreType} from "./components/redux/state";
 import {Settings} from "./components/Settings/Settings";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import UsersContainer from "./Users/UsersContainer";
+
 
 
 
@@ -37,6 +39,8 @@ function App() {
                         // dispatch={props.store.dispatch.bind(props.store)}
                         // newMessagText={state.dialogsPage.newMessagText}
                     />}/>
+                    <Route path='/users/*' element={ <UsersContainer/> }/>
+
                     <Route path='/news/*' element={<News/>}/>
                     <Route path='/music/*' element={<Music/>}/>
                     <Route path='/settings/*' element={<Settings/>}/>
