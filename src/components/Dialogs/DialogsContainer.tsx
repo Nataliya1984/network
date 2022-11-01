@@ -1,62 +1,38 @@
 import React from 'react';
 import Dialogs from "./Dialogs";
-import {addMessagAC, updateNewMessagTextAC} from "../redux/dialogs-reducer";
+import {addMessagAC, InitialStateType, updateNewMessagTextAC} from "../redux/dialogs-reducer";
 import {connect} from "react-redux";
-import {DialogsPageType, store} from "../redux/state";
-import {ReduxReducerType} from "../redux/redux-store";
-// import {StoreContext} from "../../../StoreContext";
 
-// type DialogsContainerPropsType = {
-//     store: StoreType
-// }
+import {AppStateType} from "../redux/redux-store";
+import {Dispatch} from "redux";
 
 
-// export const DialogsContainer = () => {
-//
-//     return (
-//
-//         <StoreContext.Consumer>
-//             {
-//                 (store) => {
-//
-//                     let state = store.getState().dialogsPage
-//
-//                     const onChangeHandler = (text: string) => {
-//                         store.dispatch(updateNewMessagTextAC(text))
-//                     }
-//
-//                     let addMessag = () => {
-//                         store.dispatch(addMessagAC(state.newMessagText))
-//                     }
-//
-//                     return <Dialogs updateNewDialogText={onChangeHandler}
-//                                     addMessag={addMessag}
-//                                     dialogsPage={state}/>
-//                 }
-//             }
-//         </StoreContext.Consumer>
-//     );
-//  };
 
-
-export type MapStatePropsType = {
-    dialogsPage:DialogsPageType
+type MapStatePropsType = {
+    dialogsPage:InitialStateType
 }
 
+type MapDispatchPropsType = {
+    updateNewDialogText: (text:string)=>void
+    addMessag:()=>void
+}
 
-let mapStateToProps = (state:ReduxReducerType):MapStatePropsType => {
+export type DialogPropsType = MapStatePropsType & MapDispatchPropsType
+
+let mapStateToProps = (state:AppStateType):MapStatePropsType => {
     return {
         dialogsPage: state.dialogsPage
     }
 }
 
-let mapDispatchToProps = (dispatch:any) => {
+let mapDispatchToProps = (dispatch:Dispatch):MapDispatchPropsType => {
     return {
         updateNewDialogText: (text:string)=>{
             dispatch(updateNewMessagTextAC(text))
         },
         addMessag:()=>{
-            dispatch(addMessagAC(store.getState().dialogsPage.newMessagText))
+           // dispatch(addMessagAC(store.getState().dialogsPage.newMessagText))
+            dispatch(addMessagAC())
         },
     }
 }

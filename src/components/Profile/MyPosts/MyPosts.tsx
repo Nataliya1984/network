@@ -2,28 +2,10 @@ import React, {KeyboardEvent,ChangeEvent, useRef} from "react";
 import './MyPosts.module.css';
 import classes from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {
-    ActionsTypes,
-    AddPostActionType,
-    PostType,
-    ProfilePageType, StoreType,
-} from "../../redux/state";
 import { addPostAC, updateNewPostTextAC } from "../../redux/profile-reducer";
+import {MyPostsPropsType} from "./MyPostsContainer";
 
 
-
-type MyPostsPropsType = {
-
-    // state: Array<PostType>
-    // newPostText:string
-    // dispatch:(action:ActionsTypes)=>void
-
-    //store:StoreType
-
-    updateNewPostText:(text:string)=>void
-    addPost:()=>void
-    profilePage:ProfilePageType
-}
 
 export const MyPosts=(props: MyPostsPropsType)=> {
 
@@ -51,8 +33,6 @@ export const MyPosts=(props: MyPostsPropsType)=> {
            props.updateNewPostText(text)
             console.log(text)
 
-           // props.dispatch({type:'UPDATE-NEW-POST-TEXT', newText:text})
-           // props.store.dispatch(updateNewPostTextAC(text))
        }
 
    }

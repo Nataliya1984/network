@@ -17,6 +17,9 @@ function Navbar(props:any) {
                 <NavLink to='/dialogs' className={({isActive}) => `${isActive ? classes.activeLink : ''}`}>Messages</NavLink>
             </div>
             <div className={classes.item}>
+                <NavLink to='/users' className={({isActive}) => `${isActive ? classes.activeLink : ''}`}>Users</NavLink>
+            </div>
+            <div className={classes.item}>
                 <NavLink to='/news' className={({isActive}) => `${isActive ? classes.activeLink : ''}`}>News</NavLink>
             </div>
             <div className={classes.item}>

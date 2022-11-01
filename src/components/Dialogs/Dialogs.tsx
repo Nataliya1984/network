@@ -2,22 +2,10 @@ import React, {ChangeEvent, KeyboardEvent} from "react";
 import classes from "./Dialogs.module.css";
 import Message from "./Massage/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import {ActionsTypes, DialogsPageType, MessageType, StoreType,} from "../redux/state";
-import {addMessagAC, updateNewMessagTextAC} from "../redux/dialogs-reducer";
+import {DialogPropsType} from "./DialogsContainer";
 
-type DialogsPropsType ={
-    // state:DialogsPageType
-    // dispatch:(action:ActionsTypes)=>void
-    // newMessagText:string
 
-    //store:StoreType
-
-    updateNewDialogText:(text:string)=>void
-    addMessag:()=>void
-    dialogsPage:DialogsPageType
-}
-
-function Dialogs(props: DialogsPropsType) {
+function Dialogs(props: DialogPropsType) {
 
     //let state = props.store.getState().dialogsPage
     let state = props.dialogsPage
@@ -40,11 +28,7 @@ function Dialogs(props: DialogsPropsType) {
     const onChangeHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
       if(newDialogsElement.current){
           let text = newDialogsElement.current.value;
-
-
           props.updateNewDialogText(text)
-
-
           //props.store.dispatch(updateNewMessagTextAC(text))
       }
     }

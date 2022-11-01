@@ -1,30 +1,65 @@
+export type UserType = {
+    id: number
+    photos: {
+        small: string
+        large: string
+
+    }
+    followed: boolean
+    name: string
+    status: string
+    location?: LocationType
+}
 
 
+export type LocationType = {
+    city: string
+    country: string
+}
 
 
- let initialState = {
-    users:[
-        // {id:1,photoUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSot6M-oAP1lg2OuHL4lieNgospaOdne0hmQ&usqp=CAU', followed:true, fullName:'Katya', status:'I am boss', location:{city:'Minsk', country:'Belarus'}},
-        // {id:2,photoUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSot6M-oAP1lg2OuHL4lieNgospaOdne0hmQ&usqp=CAU',followed:false, fullName:'Ira', status:'I am boss too', location:{city:'Minsk', country:'Belarus'}},
-        // {id:3,photoUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSot6M-oAP1lg2OuHL4lieNgospaOdne0hmQ&usqp=CAU', followed:true, fullName:'Lena', status:'I am boss too', location:{city:'Kiev', country:'Ukraine'}},
-    ]
- }
+let initialState: InitialStateType = {
+    users: [],
+    pageSize: 5,
+    totalUsersCount: 0,
+    currentPage:1,
+    isFetching:false
+}
 
-export const usersReducer = (state:any = initialState, action:userReducerType) => {
+export type InitialStateType = {
+    users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage:number
+    isFetching:boolean
+}
+
+export const usersReducer = (state: InitialStateType = initialState, action: userReducerType): InitialStateType => {
     switch (action.type) {
-        case 'FOLLOW':{
-                return  {...state, users: state.users.map((el:any) => el.id === action.payload.userId
-                    ? {...el, followed:true}:el)
-                }
-        }
-        case "UN-FOLLOW":{
-            return {...state, users: state.users.map((el:any) => el.id === action.payload.userId
-                    ? {...el, followed:false}:el)
+        case 'FOLLOW': {
+            return {
+                ...state, users: state.users.map((el: any) => el.id === action.payload.userId
+                    ? {...el, followed: true} : el)
             }
         }
-        case "SET-USERS":{
-
-            return {...state, users: [...state.users, ...action.payload.users] } //[...action.payload.users] } 
+        case "UN-FOLLOW": {
+            return {
+                ...state, users: state.users.map((el: any) => el.id === action.payload.userId
+                    ? {...el, followed: false} : el)
+            }
+        }
+        case "SET-USERS": {
+//debugger
+            return {...state, users:action.payload.users} //[...action.payload.users] }
+        }
+        case "SET-CURRENT-PAGE":{
+            return {...state, currentPage:action.payload.currentPage}
+        }
+        case "SET-TOTAL-COUNT":{
+            return {...state, totalUsersCount:action.payload.totalCount}
+        }
+        case "TOGGLE-IS-FETCHING":{
+            return {...state, isFetching:action.payload.isFetching}
         }
 
         default:
@@ -33,38 +68,73 @@ export const usersReducer = (state:any = initialState, action:userReducerType) =
 
 }
 
-export type userReducerType = followACType|unFollowACType|setUsersACType
+export type userReducerType = followACType
+    | unFollowACType
+    | setUsersACType
+    | SetCurrentPageACType
+    |SetTotalUsersCountACType
+    |ToggleIsFetchingACType
 
-export type followACType = ReturnType<typeof followAC>
- export type unFollowACType = ReturnType<typeof unFollowAC>
- export type setUsersACType = ReturnType<typeof setUsersAC>
+export type followACType = ReturnType<typeof follow>
+export type unFollowACType = ReturnType<typeof unFollow>
+export type setUsersACType = ReturnType<typeof setUsers>
+export type SetCurrentPageACType = ReturnType<typeof setCurrentPage>
+export type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>
+export type ToggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
 
-export const followAC = (userId:number) => {
+export const follow = (userId: number) => {
+    return {
+        type: 'FOLLOW',
+        payload: {
+            userId
+        }
+
+    } as const
+}
+
+export const unFollow = (userId: number) => {
+    return {
+        type: 'UN-FOLLOW',
+        payload: {
+            userId
+        }
+
+    } as const
+}
+
+export const setUsers = (users: Array<UserType>) => {
+    return {
+        type: 'SET-USERS',
+        payload: {
+            users
+        }
+
+    } as const
+}
+
+export const setCurrentPage = (currentPage:number) => {
   return{
-      type:'FOLLOW',
+      type:'SET-CURRENT-PAGE',
       payload:{
-          userId
+          currentPage
       }
-
   }as const
 }
 
- export const unFollowAC = (userId:number) => {
-     return{
-         type:'UN-FOLLOW',
-         payload:{
-             userId
-         }
+export const setTotalUsersCount = (totalCount:number) => {
+  return{
+      type:'SET-TOTAL-COUNT',
+      payload:{
+          totalCount
+      }
+  }as const
+}
 
-     }as const
- }
-
- export const setUsersAC = (users:Array<any>) => {
-     return{
-         type:'SET-USERS',
-         payload:{
-             users
-         }
-
-     }as const
- }
+export const toggleIsFetching = (isFetching:boolean) => {
+  return{
+      type: 'TOGGLE-IS-FETCHING',
+      payload:{
+          isFetching
+      }
+  }as const
+}
