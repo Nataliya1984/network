@@ -1,11 +1,12 @@
 import React from "react";
 import classes from "./ProfileInfo.module.css";
 import {Preloader} from "../../../common/Preloader/Preloader";
-import {ProfileUserType} from "../ProfileContainer";
+import {ProfileType} from "../../redux/profile-reducer";
+
 
 
 export type ProfileInfoPropsType = {
-    profile:ProfileUserType
+    profile:ProfileType
 }
 
 function ProfileInfo(props: ProfileInfoPropsType) {

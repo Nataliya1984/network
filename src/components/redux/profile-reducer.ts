@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {profileApi} from "../../api/api";
+
 export type  PostType = {
     id: number
     message: string
@@ -33,6 +36,28 @@ let initialState = {
              large: '',
          }
      }
+}
+
+export type ProfileType = {
+    aboutMe: string,
+    contacts: {
+        facebook: string,
+        website: string,
+        vk: string,
+        twitter: string,
+        instagram: string,
+        youtube: string,
+        github: string,
+        mainLink: string
+    },
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string,
+    fullName: string,
+    userId: number,
+    photos: {
+        small: string,
+        large: string
+    }
 }
 
 export const profileReducer = (state: InitialStateType = initialState, action: ProfileReducerType): InitialStateType => {
@@ -77,9 +102,19 @@ export const updateNewPostTextAC = (text: string) => {
     } as const
 }
 
-export const setUserProfile = (profile: any) => {
+export const setUserProfile = (profile: ProfileType) => {
     return {
         type: 'SET-USER-PROFILE',
         profile: profile
     } as const
+}
+
+//thunk
+
+export const setUserProfileTC = (userId:string) => (dispatch:Dispatch)=>{
+
+    profileApi.getProfile(userId)
+        .then((res) => {
+            dispatch(setUserProfile(res.data))
+        })
 }

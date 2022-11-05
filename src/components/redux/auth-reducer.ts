@@ -1,3 +1,5 @@
+import {Dispatch} from "redux";
+import {authApi} from "../../api/api";
 
 const initialState: InitialStateType = {
     id: null,
@@ -43,4 +45,18 @@ export const setAuthUserDataAC = (data:{id: number, email: string, login: string
       type:'SET-USER-DATA',
      data
   }as const
+}
+
+//thunk
+
+
+export const setAuthUserDataTC = () =>(dispatch:Dispatch)=> {
+    authApi.me()
+        .then((data) => {
+            if (data.resultCode === 0) {
+                let {id, email, login} = data.data
+                dispatch(setAuthUserDataAC({id, email, login}))
+            }
+        })
+
 }

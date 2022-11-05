@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {followApi, usersApi} from "../../api/api";
+
 export type UserType = {
     id: number
     photos: {
@@ -22,16 +25,18 @@ let initialState: InitialStateType = {
     users: [],
     pageSize: 5,
     totalUsersCount: 0,
-    currentPage:1,
-    isFetching:false
+    currentPage: 1,
+    isFetching: false,
+     followingInProgress: [],
 }
 
 export type InitialStateType = {
     users: Array<UserType>
     pageSize: number
     totalUsersCount: number
-    currentPage:number
-    isFetching:boolean
+    currentPage: number
+    isFetching: boolean
+    followingInProgress:Array<number>
 }
 
 export const usersReducer = (state: InitialStateType = initialState, action: userReducerType): InitialStateType => {
@@ -50,16 +55,25 @@ export const usersReducer = (state: InitialStateType = initialState, action: use
         }
         case "SET-USERS": {
 //debugger
-            return {...state, users:action.payload.users} //[...action.payload.users] }
+            return {...state, users: action.payload.users} //[...action.payload.users] }
         }
-        case "SET-CURRENT-PAGE":{
-            return {...state, currentPage:action.payload.currentPage}
+        case "SET-CURRENT-PAGE": {
+            return {...state, currentPage: action.payload.currentPage}
         }
-        case "SET-TOTAL-COUNT":{
-            return {...state, totalUsersCount:action.payload.totalCount}
+        case "SET-TOTAL-COUNT": {
+            return {...state, totalUsersCount: action.payload.totalCount}
         }
-        case "TOGGLE-IS-FETCHING":{
-            return {...state, isFetching:action.payload.isFetching}
+        case "TOGGLE-IS-FETCHING": {
+            return {...state, isFetching: action.payload.isFetching}
+        }
+        case "TOGGLE-IS-FOLLOWING_PROGRESS":{
+            return {
+                ...state,
+                followingInProgress: action.isFetching
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter( el => el !== action.userId )
+            }
+          //  return {...state, followingInProgress:action.followingInProgress}
         }
 
         default:
@@ -68,20 +82,8 @@ export const usersReducer = (state: InitialStateType = initialState, action: use
 
 }
 
-export type userReducerType = followACType
-    | unFollowACType
-    | setUsersACType
-    | SetCurrentPageACType
-    |SetTotalUsersCountACType
-    |ToggleIsFetchingACType
 
-export type followACType = ReturnType<typeof follow>
-export type unFollowACType = ReturnType<typeof unFollow>
-export type setUsersACType = ReturnType<typeof setUsers>
-export type SetCurrentPageACType = ReturnType<typeof setCurrentPage>
-export type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>
-export type ToggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
-
+//action
 export const follow = (userId: number) => {
     return {
         type: 'FOLLOW',
@@ -112,29 +114,96 @@ export const setUsers = (users: Array<UserType>) => {
     } as const
 }
 
-export const setCurrentPage = (currentPage:number) => {
-  return{
-      type:'SET-CURRENT-PAGE',
-      payload:{
-          currentPage
-      }
-  }as const
+export const setCurrentPage = (currentPage: number) => {
+    return {
+        type: 'SET-CURRENT-PAGE',
+        payload: {
+            currentPage
+        }
+    } as const
 }
 
-export const setTotalUsersCount = (totalCount:number) => {
-  return{
-      type:'SET-TOTAL-COUNT',
-      payload:{
-          totalCount
-      }
-  }as const
+export const setTotalUsersCount = (totalCount: number) => {
+    return {
+        type: 'SET-TOTAL-COUNT',
+        payload: {
+            totalCount
+        }
+    } as const
 }
 
-export const toggleIsFetching = (isFetching:boolean) => {
-  return{
-      type: 'TOGGLE-IS-FETCHING',
-      payload:{
-          isFetching
-      }
-  }as const
+export const toggleIsFetching = (isFetching: boolean) => {
+    return {
+        type: 'TOGGLE-IS-FETCHING',
+        payload: {
+            isFetching
+        }
+    } as const
 }
+
+export const toggleIsFollowingProgressAC = (isFetching:boolean, userId:number) => {
+    return {
+        type: 'TOGGLE-IS-FOLLOWING_PROGRESS',
+        isFetching,
+        userId
+    } as const
+}
+
+//thunk
+
+export const getUsersTC = (currentPage:number, pageSize:number) => (dispatch:Dispatch) => {
+
+    dispatch(toggleIsFetching(true))
+
+    usersApi.getUsers(currentPage, pageSize)
+        .then((data) => {
+            // debugger
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+            dispatch(toggleIsFetching(false))
+        })
+}
+
+export const followTC = (id:number) => (dispatch:Dispatch) => {
+
+    dispatch(toggleIsFollowingProgressAC(true, id))
+
+    followApi.getFollow(id)
+        .then((data) => {
+            if (data.resultCode === 0){
+                dispatch(unFollow(id))
+            }
+            dispatch(toggleIsFollowingProgressAC(false, id))
+        })
+}
+
+export const unFollowTC = (id:number) => (dispatch:Dispatch)=>{
+    dispatch(toggleIsFollowingProgressAC(true, id))
+    followApi.deleteFollow(id)
+        .then((data) => {
+            // debugger
+            if (data.resultCode === 0){
+                dispatch(follow(id))
+            }
+            dispatch(toggleIsFollowingProgressAC(false, id))
+        })
+}
+
+
+//type
+
+export type userReducerType = followACType
+    | unFollowACType
+    | setUsersACType
+    | SetCurrentPageACType
+    | SetTotalUsersCountACType
+    | ToggleIsFetchingACType
+    | ToggleIsFollowingProgressACType
+
+export type followACType = ReturnType<typeof follow>
+export type unFollowACType = ReturnType<typeof unFollow>
+export type setUsersACType = ReturnType<typeof setUsers>
+export type SetCurrentPageACType = ReturnType<typeof setCurrentPage>
+export type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>
+export type ToggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
+export type ToggleIsFollowingProgressACType = ReturnType<typeof toggleIsFollowingProgressAC>
