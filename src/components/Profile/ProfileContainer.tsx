@@ -3,11 +3,13 @@ import Profile from "./Profile";
 import {connect} from "react-redux";
 import {AppStateType} from "../redux/redux-store";
 import {ProfileType, setUserProfileTC} from "../redux/profile-reducer";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {Navigate, useLocation, useNavigate, useParams} from "react-router-dom";
+import {withAuthRedirect} from "../HOC/AuthRedirect";
 
 
 export type MapStateUserProfileToPropsType ={
     profile:ProfileType
+ //   isAuth:boolean
 }
 
 export type MapDispatchProfilePropsType ={
@@ -40,11 +42,8 @@ class ProfileContainer extends React.Component<PropsType & { router: WithRouterP
 
 
     componentDidMount() {
-
         let userId = this.props.router.params.userId
-
         this.props.setUserProfileTC(userId)
-
          // let userId = this.props.router.params.userId
          //
          //    profileApi.getProfile(userId)
@@ -55,6 +54,9 @@ class ProfileContainer extends React.Component<PropsType & { router: WithRouterP
     }
 
     render() {
+        // if (this.props.isAuth===false){
+        //     return <Navigate to={'/login'}/>
+        // }
         return (
             <Profile {...this.props} profile={this.props.profile}/>
         )
@@ -63,13 +65,32 @@ class ProfileContainer extends React.Component<PropsType & { router: WithRouterP
 
 }
 
+const AuthRedirectComponent = withAuthRedirect(ProfileContainer)
+
+//
+//
+//     (props:any) => {
+//
+//     if (props.isAuth===false){
+//         return <Navigate to={'/login'}/>
+//     }
+//
+//   return(
+//       <ProfileContainer {...props}/>
+//   )
+// }
+
+
+
 export let mapStateToProps = (state:AppStateType):MapStateUserProfileToPropsType =>{
     return {
-        profile:state.profilePage.profile
+        profile:state.profilePage.profile,
+      //  isAuth:state.auth.isAuth
     }
 }
 
+const WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
 
 export default connect(mapStateToProps, {
     setUserProfileTC
-}) (withRouter<any>(ProfileContainer));
+}) (withRouter<any>(WithUrlDataContainerComponent));

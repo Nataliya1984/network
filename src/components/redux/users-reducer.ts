@@ -178,9 +178,11 @@ export const followTC = (id:number) => (dispatch:Dispatch) => {
 }
 
 export const unFollowTC = (id:number) => (dispatch:Dispatch)=>{
+   // debugger
     dispatch(toggleIsFollowingProgressAC(true, id))
     followApi.deleteFollow(id)
         .then((data) => {
+           // debugger
             // debugger
             if (data.resultCode === 0){
                 dispatch(follow(id))

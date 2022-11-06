@@ -17,7 +17,7 @@ let initialState = {
     newPostText: '',
      profile: {
          aboutMe:'',
-         userId: 0,
+         userId: 2,
          lookingForAJob: false,
          lookingForAJobDescription: '',
          fullName: '',
@@ -111,10 +111,11 @@ export const setUserProfile = (profile: ProfileType) => {
 
 //thunk
 
-export const setUserProfileTC = (userId:string) => (dispatch:Dispatch)=>{
-
+export const setUserProfileTC = (userId:number) => (dispatch:Dispatch)=>{
+//debugger
     profileApi.getProfile(userId)
         .then((res) => {
+            //debugger
             dispatch(setUserProfile(res.data))
         })
 }

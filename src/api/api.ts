@@ -9,7 +9,7 @@ const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     withCredentials: true,
     headers: {
-        'API-KEY': '2cc0480d-3d45-4b44-9014-133174ac3a11'
+        'API-KEY': 'd6facda8-d6cc-4669-9af0-a890cb17e0bd'
     }
 
 })
@@ -33,8 +33,8 @@ export const authApi = {
 }
 
 export const profileApi = {
-    getProfile(userId: string) {
-        return instance.get<ProfileType>(`profile/` + userId)
+    getProfile(userId: number) {
+        return instance.get<ProfileType>(`profile/${userId}`)
     }
 }
 

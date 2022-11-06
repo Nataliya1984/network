@@ -3,6 +3,7 @@ import classes from "./Dialogs.module.css";
 import Message from "./Massage/Message";
 import DialogItem from "./DialogItem/DialogItem";
 import {DialogPropsType} from "./DialogsContainer";
+import { Navigate } from "react-router-dom";
 
 
 function Dialogs(props: DialogPropsType) {
@@ -36,6 +37,11 @@ function Dialogs(props: DialogPropsType) {
     let onKeyPressHandler=(e:KeyboardEvent<HTMLTextAreaElement>)=>{
         e.key === 'Enter' && addMessag()
     }
+
+    if (props.isAuth === false){
+        return <Navigate to={'/login'}/>
+    }
+   // alert(props.isAuth)
 
     return (
         <div className={classes.dialogs}>
