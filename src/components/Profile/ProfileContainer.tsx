@@ -5,6 +5,7 @@ import {AppStateType} from "../redux/redux-store";
 import {ProfileType, setUserProfileTC} from "../redux/profile-reducer";
 import {Navigate, useLocation, useNavigate, useParams} from "react-router-dom";
 import {withAuthRedirect} from "../HOC/AuthRedirect";
+import {compose} from "redux";
 
 
 export type MapStateUserProfileToPropsType ={
@@ -65,32 +66,29 @@ class ProfileContainer extends React.Component<PropsType & { router: WithRouterP
 
 }
 
-const AuthRedirectComponent = withAuthRedirect(ProfileContainer)
-
-//
-//
-//     (props:any) => {
-//
-//     if (props.isAuth===false){
-//         return <Navigate to={'/login'}/>
-//     }
-//
-//   return(
-//       <ProfileContainer {...props}/>
-//   )
-// }
-
-
-
 export let mapStateToProps = (state:AppStateType):MapStateUserProfileToPropsType =>{
     return {
         profile:state.profilePage.profile,
-      //  isAuth:state.auth.isAuth
     }
 }
 
-const WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {setUserProfileTC}),
+    withRouter,
+    // withAuthRedirect //нельзя попадать на страницу профиля незалогиненому пользователю
+)
+(ProfileContainer)
 
-export default connect(mapStateToProps, {
-    setUserProfileTC
-}) (withRouter<any>(WithUrlDataContainerComponent));
+// const AuthRedirectComponent = withAuthRedirect(ProfileContainer)
+//
+// export let mapStateToProps = (state:AppStateType):MapStateUserProfileToPropsType =>{
+//     return {
+//         profile:state.profilePage.profile,
+//     }
+// }
+//
+// const WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
+//
+// export default connect(mapStateToProps, {
+//     setUserProfileTC
+// }) (withRouter<any>(WithUrlDataContainerComponent));

@@ -3,7 +3,7 @@ import Dialogs from "./Dialogs";
 import {addMessagAC, InitialStateType, updateNewMessagTextAC} from "../redux/dialogs-reducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../redux/redux-store";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import {Navigate} from "react-router-dom";
 import {withAuthRedirect} from "../HOC/AuthRedirect";
 
@@ -40,21 +40,33 @@ let mapDispatchToProps = (dispatch:Dispatch):MapDispatchPropsType => {
     }
 }
 
-const AuthRedirectComponent = withAuthRedirect(Dialogs)
+// compose(
+//     connect(mapStateToProps, mapDispatchToProps),
+//     withAuthRedirect
+// )
+// (Dialogs)
 //
+// const AuthRedirectComponent = withAuthRedirect(Dialogs)
+// //
+// //
+// //     (props:any) => {
+// //
+// //     if (props.isAuth===false){
+// //         return <Navigate to={'/login'}/>
+// //     }
+// //
+// //    // debugger
+// //
+// //     return(
+// //         <Dialogs {...props}/>
+// //     )
+// // }
 //
-//     (props:any) => {
-//
-//     if (props.isAuth===false){
-//         return <Navigate to={'/login'}/>
-//     }
-//
-//    // debugger
-//
-//     return(
-//         <Dialogs {...props}/>
-//     )
-// }
+// const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
 
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)
+(Dialogs)
 
