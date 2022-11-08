@@ -35,7 +35,9 @@ let initialState = {
              small: '',
              large: '',
          }
-     }
+     },
+    status:''
+
 }
 
 export type ProfileType = {
@@ -74,6 +76,9 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
            // debugger
            return {...state, profile:action.profile}
         }
+        case "SET-STATUS":{
+            return {...state, status:action.status}
+        }
         default:
             return state
     }
@@ -81,11 +86,12 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
 }
 
 export type ProfileReducerType = addPostACType | updateNewPostTextAC
-    | SetUserProfileType
+    | SetUserProfileType |SetStatusACType
 
 export type addPostACType = ReturnType<typeof addPostAC>
 export type updateNewPostTextAC = ReturnType<typeof updateNewPostTextAC>
 export type SetUserProfileType = ReturnType<typeof setUserProfile>
+export type SetStatusACType = ReturnType<typeof setStatusAC>
 
 
 export const addPostAC = () => {
@@ -109,6 +115,13 @@ export const setUserProfile = (profile: ProfileType) => {
     } as const
 }
 
+export const setStatusAC = (status:string) => {
+  return{
+      type:'SET-STATUS',
+      status
+  }as const
+}
+
 //thunk
 
 export const setUserProfileTC = (userId:number) => (dispatch:Dispatch)=>{
@@ -119,3 +132,26 @@ export const setUserProfileTC = (userId:number) => (dispatch:Dispatch)=>{
             dispatch(setUserProfile(res.data))
         })
 }
+
+export const getStatusTC = (userId:number) =>(dispatch:Dispatch)=> {
+//debugger
+    profileApi.getStatus(userId)
+        .then((res)=>{
+           // debugger
+            dispatch(setStatusAC(res.data))
+        })
+
+}
+
+export const updateStatusTC = (status:string) =>(dispatch:Dispatch)=> {
+   // debugger
+    profileApi.updateStatus(status)
+        .then((res)=>{
+           // debugger
+            if (res.data.resultCode ===0){
+                dispatch(setStatusAC(status))
+            }
+        })
+
+}
+

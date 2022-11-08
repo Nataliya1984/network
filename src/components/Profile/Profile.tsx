@@ -7,13 +7,15 @@ import { Navigate } from "react-router-dom";
 
 export type ProfilePropsType={
     profile:ProfileType
+    status:string
+    updateStatusTC:(status:string)=>any
 }
 
 function Profile(props:ProfilePropsType) {
 
     return (
         <div>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo profile={props.profile} status={props.status} updateStatusTC={props.updateStatusTC}/>
             <MyPostsContainer/>
         </div>
     )

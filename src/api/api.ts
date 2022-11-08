@@ -35,18 +35,24 @@ export const authApi = {
 export const profileApi = {
     getProfile(userId: number) {
         return instance.get<ProfileType>(`profile/${userId}`)
+    },
+    getStatus(userId:number){
+        return instance.get<any>(`profile/status/${userId}`)
+    },
+    updateStatus(status:string){
+        return instance.put<ResponseType>(`profile/status`, {status:status})
     }
 }
 
 export const followApi = {
     getFollow(id: number) {
-        return instance.delete<FollowAndUnFollowResponse>(`follow/${id}`)
+        return instance.delete<ResponseType>(`follow/${id}`)
             .then((res) => {
                 return res.data
             })
     },
     deleteFollow(id: number) {
-        return instance.post<FollowAndUnFollowResponse>(`follow/${id}`)
+        return instance.post<ResponseType>(`follow/${id}`)
             .then((res) => {
                 return res.data
             })
@@ -62,8 +68,20 @@ type GetUsersResponse = {
     error: string
 }
 
-type FollowAndUnFollowResponse = {
+// type FollowAndUnFollowResponse = {
+//     resultCode: number
+//     messages: Array<string>
+//     data: {}
+// }
+//
+// type StatusResponse = {
+//     resultCode: number
+//     messages: Array<string>
+//     data: {}
+// }
+
+type ResponseType<D = {}> = {
     resultCode: number
     messages: Array<string>
-    data: {}
+    data: D
 }

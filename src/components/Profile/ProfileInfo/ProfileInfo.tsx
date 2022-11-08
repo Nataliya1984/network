@@ -8,6 +8,8 @@ import { ProfileStatus } from "../ProfileStatus";
 
 export type ProfileInfoPropsType = {
     profile:ProfileType
+    status:string
+    updateStatusTC:(status:string)=>any
 }
 
 function ProfileInfo(props: ProfileInfoPropsType) {
@@ -39,7 +41,7 @@ function ProfileInfo(props: ProfileInfoPropsType) {
 
                 <div>
                     <br/>
-                    <ProfileStatus status={'привет'}/>
+                    <ProfileStatus status={props.status} updateStatusTC={props.updateStatusTC}/>
                 </div>
 
             </div>

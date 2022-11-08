@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import classes from "./ProfileInfo.module.css";
 
 type ProfileStatusPropsType = {
     status: string
+    updateStatusTC:(status:string)=>any
 }
 
 
 export class ProfileStatus extends React.Component <ProfileStatusPropsType> {
 
     state = {
-        editMode: false
+        editMode: false,
+        status: this.props.status
     }
 
     activateEditMode = () => {
@@ -26,22 +28,32 @@ export class ProfileStatus extends React.Component <ProfileStatusPropsType> {
         this.setState({
             editMode:false
         })
+        //для обновления статуса,при деактивации вызвать колбэк для обновления статуса
+        this.props.updateStatusTC(this.state.status)
+    }
+
+    onStatusChange = (e:ChangeEvent<HTMLInputElement>) =>{
+        this.setState({
+            status: e.currentTarget.value
+        } )
+
     }
 
     render() {
         return (
             <div>
+                <h3>статус пользователя:</h3>
                 {/*если у нас false отображаем эту div*/}
                 {!this.state.editMode &&
                     <div>
-                        <span onDoubleClick={this.activateEditMode}>{this.props.status}</span>
+                        <span onDoubleClick={this.activateEditMode}>{this.props.status || '---статуса нет---'  }</span>
                     </div>
                 }
 
                 {/*если у нас true отображаем эту div*/}
                 {this.state.editMode &&
                     <div>
-                        <input value={this.props.status} onBlur={this.deactivateEditMode} autoFocus={true}/>
+                        <input onChange={this.onStatusChange} value={this.state.status} onBlur={this.deactivateEditMode} autoFocus={true}/>
                     </div>
                 }
 
