@@ -39,6 +39,17 @@ export class ProfileStatus extends React.Component <ProfileStatusPropsType> {
 
     }
 
+    componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<{}>, snapshot?: any) {
+       //в компонентдидмоунт мы должны вызвать изменение стейта
+        // внутри компонент дидапдейт все сет стейты, всегда должны быть внутри какого либо условия, что бы не произошло зацикливание
+
+        if (prevProps.status !== this.props.status){ //если в предыдущих пропсах, статус был, который не равен статусу в текущих пропсах то:
+            this.setState({
+                status:this.props.status
+            }) //метод вызовется когда в пропсах прийдет новый статус, и когда он пришел мы заменяем старый статус на новый
+        }
+    }
+
     render() {
         return (
             <div>

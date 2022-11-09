@@ -1,11 +1,12 @@
 import {Dispatch} from "redux";
-import {authApi} from "../../api/api";
+import {authApi, LoginParamsType} from "../../api/api";
 
 const initialState: InitialStateType = {
     id: null,
     email: null,
     login: null,
-    isAuth:false
+    isAuth:false,
+    isLoggedIn:false
 }
 
 export type InitialStateType = {
@@ -13,21 +14,18 @@ export type InitialStateType = {
     email: null | string
     login: null | string
     isAuth:boolean
+    isLoggedIn:boolean
 }
 
-export type DataType = {
-    id: number
-    email: string
-    login: string
-}
 
 export const authReducer = (state: InitialStateType = initialState, action: authReducerType): InitialStateType => {
     switch (action.type) {
         case "SET-USER-DATA": {
             //debugger
-            return {
-                 ...state, ...action.data, isAuth:true
-            }
+            return {...state, ...action.data, isAuth:true}
+        }
+        case "IS-LOGGED-IN":{
+            return {...state, isLoggedIn:action.isLoggedIn}
         }
         default:
             return state
@@ -35,15 +33,23 @@ export const authReducer = (state: InitialStateType = initialState, action: auth
 
 }
 
-export type authReducerType = SetUserDataACType
+export type authReducerType = SetUserDataACType|setIsLoggedInACType
 
 export type SetUserDataACType = ReturnType<typeof setAuthUserDataAC>
+export type setIsLoggedInACType = ReturnType<typeof setIsLoggedInAC>
 
 
 export const setAuthUserDataAC = (data:{id: number, email: string, login: string}) => {
   return{
       type:'SET-USER-DATA',
      data
+  }as const
+}
+
+export const setIsLoggedInAC = (isLoggedIn:boolean) => {
+  return{
+      type:'IS-LOGGED-IN',
+      isLoggedIn
   }as const
 }
 
@@ -58,5 +64,15 @@ export const setAuthUserDataTC = () =>(dispatch:Dispatch)=> {
                 dispatch(setAuthUserDataAC({id, email, login}))
             }
         })
+}
 
+export const setIsLoggedInTC = (data:LoginParamsType) =>(dispatch:Dispatch)=> {
+debugger
+    authApi.login(data)
+        .then((res)=>{
+            debugger
+            if (res.data.resultCode === 0){
+                dispatch(setIsLoggedInAC(true))
+            }
+        })
 }

@@ -1,5 +1,14 @@
-export const Login = () => {
+import {LoginForm} from "./LoginForm";
+
+export type LoginPropsType = {
+
+}
+
+export const Login = (props:LoginPropsType) => {
   return(
-      <div>Login</div>
+      <div>
+        <h1>Login</h1>
+        <LoginForm/>
+      </div>
   )
 }

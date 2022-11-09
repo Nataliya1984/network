@@ -1,7 +1,8 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {UserType} from "../components/redux/users-reducer";
 import {GetAuthResponse} from "../components/Header/HeaderContainer";
 import {ProfileType} from "../components/redux/profile-reducer";
+
 
 
 
@@ -29,7 +30,11 @@ export const authApi = {
             .then((res) => {
                 return res.data
             })
+    },
+    login(data:LoginParamsType){
+        return instance.post<LoginParamsType, AxiosResponse<ResponseType<{userId:number}>>>('/auth/login', data)
     }
+
 }
 
 export const profileApi = {
@@ -68,20 +73,15 @@ type GetUsersResponse = {
     error: string
 }
 
-// type FollowAndUnFollowResponse = {
-//     resultCode: number
-//     messages: Array<string>
-//     data: {}
-// }
-//
-// type StatusResponse = {
-//     resultCode: number
-//     messages: Array<string>
-//     data: {}
-// }
-
 type ResponseType<D = {}> = {
     resultCode: number
     messages: Array<string>
     data: D
+}
+
+export type LoginParamsType = {
+    email:string
+    password:string
+    rememberMe:boolean
+    captcha?:string
 }
