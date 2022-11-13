@@ -46,12 +46,7 @@ export const setAuthUserDataAC = (data:{id: number, email: string, login: string
   }as const
 }
 
-export const setIsLoggedInAC = (isLoggedIn:boolean) => {
-  return{
-      type:'IS-LOGGED-IN',
-      isLoggedIn
-  }as const
-}
+export const setIsLoggedInAC = (isLoggedIn:boolean) => ({type:'IS-LOGGED-IN', isLoggedIn} as const)
 
 //thunk
 
@@ -70,7 +65,7 @@ export const setIsLoggedInTC = (data:LoginParamsType) =>(dispatch:Dispatch)=> {
 debugger
     authApi.login(data)
         .then((res)=>{
-            debugger
+         //   debugger
             if (res.data.resultCode === 0){
                 dispatch(setIsLoggedInAC(true))
             }

@@ -1,5 +1,5 @@
-import {addPostAC, profileReducer, updateNewPostTextAC} from "./profile-reducer";
-import {addMessagAC, dialogsReducer, updateNewMessagTextAC} from "./dialogs-reducer";
+import {addPostAC} from "./profile-reducer";
+import {addMessagAC} from "./dialogs-reducer";
 
 
  type MessageType = {
@@ -46,15 +46,13 @@ export type SidebarType = {}
 }
 
 type ActionsTypes = AddPostActionType
-                         |UpdateNewPostTextActionType
                          |AddMessagActionType
-                         |UpdateNewMessagTextActionType
 
 
- type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
+
  type AddMessagActionType = ReturnType<typeof addMessagAC>
  type AddPostActionType = ReturnType<typeof addPostAC>
- type UpdateNewMessagTextActionType = ReturnType<typeof updateNewMessagTextAC>
+
 
 
  const store: StoreType = {

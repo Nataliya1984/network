@@ -10,7 +10,6 @@ import {compose} from "redux";
 export type MapStateUserProfileToPropsType = {
     profile: ProfileType
     status: string
-
     //   isAuth:boolean
 }
 

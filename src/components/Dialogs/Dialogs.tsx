@@ -1,9 +1,10 @@
-import React, {ChangeEvent, KeyboardEvent} from "react";
+import React from "react";
 import classes from "./Dialogs.module.css";
 import Message from "./Massage/Message";
 import DialogItem from "./DialogItem/DialogItem";
 import {DialogPropsType} from "./DialogsContainer";
 import { Navigate } from "react-router-dom";
+import {useFormik} from "formik";
 
 
 function Dialogs(props: DialogPropsType) {
@@ -15,28 +16,6 @@ function Dialogs(props: DialogPropsType) {
 
     let messagesElements = state.messages.map((m:any) => <Message key={m.id} message={m.message} id={m.id}/>);
 
-    let newDialogsElement = React.createRef<HTMLTextAreaElement>();
-
-    let addMessag = () => {
-         if(newDialogsElement.current){
-          //let text = newDialogsElement.current.value;
-            props.addMessag()
-            //props.store.dispatch(addMessagAC(state.newMessagText))
-        }
-
-    }
-
-    const onChangeHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
-      if(newDialogsElement.current){
-          let text = newDialogsElement.current.value;
-          props.updateNewDialogText(text)
-          //props.store.dispatch(updateNewMessagTextAC(text))
-      }
-    }
-
-    let onKeyPressHandler=(e:KeyboardEvent<HTMLTextAreaElement>)=>{
-        e.key === 'Enter' && addMessag()
-    }
 
     if (props.isAuth === false){
         return <Navigate to={'/login'}/>
@@ -51,21 +30,83 @@ function Dialogs(props: DialogPropsType) {
 
             <div className={classes.messages}>
                   {messagesElements}
-                <div>
-                    <textarea ref={newDialogsElement}
-                              value={state.newMessagText}
-                              onChange={onChangeHandler}
-                              onKeyPress={onKeyPressHandler}>
-
-                    </textarea>
-                </div>
-                <div>
-                    <button  onClick={addMessag}>Add post</button>
-                </div>
+                <AddMessageForm addMessag={props.addMessag} />
 
             </div>
         </div>
     )
+}
+
+export type AddMessageForm={
+    addMessag:(newMessagText:string)=>void
+
+}
+
+type FormikErrorType ={
+    newMessagText?:string
+}
+
+const validate = (values:any) => {
+//debugger
+    const errors:FormikErrorType = {};
+
+    if (!values.newMessagText) {
+       // debugger
+        errors.newMessagText = 'Заполните поле ввода';
+    } else if (values.newMessagText.length < 5) {
+       // debugger
+        errors.newMessagText = 'сообщение должно быть не менее 5 символов';
+    } else if (values.newMessagText.length >30){
+        errors.newMessagText = 'сообщение не должно превышать 30 символов'
+    }
+
+    return errors;
+};
+
+const AddMessageForm = (props:AddMessageForm) => {
+
+
+    const formik = useFormik({
+        initialValues: {
+            newMessagText: '',
+        },
+        validate,
+        onSubmit: values => {
+            alert(JSON.stringify(values));
+            props.addMessag(values.newMessagText)
+            console.log(JSON.stringify(values))
+        },
+    });
+
+  return(
+      <form onSubmit={formik.handleSubmit}>
+          <div>
+              <label htmlFor="textarea">Напишите сообщение:</label>
+              <br/>
+                    <textarea  style={{outline:'none'}}
+                              // ref={newDialogsElement}
+                              // value={props.state.newMessagText}
+                              // onChange={onChangeHandler}
+                             // onKeyPress={onKeyPressHandler}
+
+
+                              // name="newMessagText"
+                              // onChange={formik.handleChange}
+                              // value={formik.values.newMessagText}
+                              //  onBlur={formik.handleBlur}
+                        // сокращаем с помощью getFieldProps
+                               placeholder={'Enter your message'}
+                               {...formik.getFieldProps('newMessagText')}
+                    />
+
+              {formik.touched.newMessagText && formik.errors.newMessagText ? <div style={{color:'red'}}>{formik.errors.newMessagText}</div> : null}
+          </div>
+          <div>
+              <button type="submit">Add post</button>
+              {/*<button  onClick={addMessag}>Add post</button>*/}
+          </div>
+      </form>
+  )
 }
 
 export default Dialogs;

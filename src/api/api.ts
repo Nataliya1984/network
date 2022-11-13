@@ -32,6 +32,7 @@ export const authApi = {
             })
     },
     login(data:LoginParamsType){
+       // debugger
         return instance.post<LoginParamsType, AxiosResponse<ResponseType<{userId:number}>>>('/auth/login', data)
     }
 

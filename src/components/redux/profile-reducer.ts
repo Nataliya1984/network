@@ -14,7 +14,7 @@ let initialState = {
         {id: 1, message: 'Hi, how are you?', likesCount: 5},
         {id: 2, message: "It's my first post", likesCount: 4},
     ] as Array<PostType>,
-    newPostText: '',
+    // newPostText: '',
      profile: {
          aboutMe:'',
          userId: 2,
@@ -65,12 +65,10 @@ export type ProfileType = {
 export const profileReducer = (state: InitialStateType = initialState, action: ProfileReducerType): InitialStateType => {
 
     switch (action.type) {
+        //8 берем наш newPostText из экшена
         case "ADD-POST": {
-            let message = state.newPostText
-            return {...state, newPostText: '', post: [...state.post, {id: 10, message: message, likesCount: 4}]}
-        }
-        case "UPDATE-NEW-POST-TEXT": {
-            return {...state, newPostText: action.newText}
+            let message = action.newPostText
+            return {...state, post: [{id: 10, message: message, likesCount: 4}, ...state.post]}
         }
         case "SET-USER-PROFILE": {
            // debugger
@@ -85,26 +83,17 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
 
 }
 
-export type ProfileReducerType = addPostACType | updateNewPostTextAC
-    | SetUserProfileType |SetStatusACType
+export type ProfileReducerType = addPostACType | SetUserProfileType |SetStatusACType
 
 export type addPostACType = ReturnType<typeof addPostAC>
-export type updateNewPostTextAC = ReturnType<typeof updateNewPostTextAC>
 export type SetUserProfileType = ReturnType<typeof setUserProfile>
 export type SetStatusACType = ReturnType<typeof setStatusAC>
 
-
-export const addPostAC = () => {
+//7 передаем в экшен крейтор newPostText
+export const addPostAC = (newPostText:string) => {
     return {
         type: 'ADD-POST',
-        // newPostText: postText
-    } as const
-}
-
-export const updateNewPostTextAC = (text: string) => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        newText: text
+         newPostText
     } as const
 }
 

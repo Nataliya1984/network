@@ -1,6 +1,6 @@
 import React from 'react';
 import {MyPosts} from "./MyPosts";
-import {addPostAC, InitialStateType, updateNewPostTextAC} from "../../redux/profile-reducer";
+import {addPostAC, InitialStateType} from "../../redux/profile-reducer";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {AppStateType} from "../../redux/redux-store";
@@ -11,8 +11,7 @@ export type MapStatePropsType = {
 }
 
 export type MapDispatchPropsType = {
-    updateNewPostText: (text: string) =>void
-    addPost: () =>void
+    addPost: (newPostText:string) =>void
 }
 
 export type MyPostsPropsType = MapStatePropsType & MapDispatchPropsType
@@ -25,11 +24,10 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 let mapDispatchToProps = (dispatch: Dispatch):MapDispatchPropsType => {
     return {
-        updateNewPostText: (text: string) => {
-            dispatch(updateNewPostTextAC(text))
-        },
-        addPost: () => {
-            dispatch(addPostAC())
+        //5 addPost будет принимать значение поста newPostText
+        addPost: (newPostText:string) => {
+            //6 этот newPostText мы передаем в экшен крейтор
+            dispatch(addPostAC(newPostText))
         }
     }
 }

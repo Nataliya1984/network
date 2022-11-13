@@ -1,10 +1,9 @@
 import React from 'react';
 import Dialogs from "./Dialogs";
-import {addMessagAC, InitialStateType, updateNewMessagTextAC} from "../redux/dialogs-reducer";
+import {addMessagAC, InitialStateType} from "../redux/dialogs-reducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../redux/redux-store";
 import {compose, Dispatch} from "redux";
-import {Navigate} from "react-router-dom";
 import {withAuthRedirect} from "../HOC/AuthRedirect";
 
 
@@ -15,8 +14,7 @@ type MapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-    updateNewDialogText: (text:string)=>void
-    addMessag:()=>void
+    addMessag:(newMessagText:string)=>void
 }
 
 export type DialogPropsType = MapStatePropsType & MapDispatchPropsType
@@ -30,12 +28,9 @@ let mapStateToProps = (state:AppStateType):MapStatePropsType => {
 
 let mapDispatchToProps = (dispatch:Dispatch):MapDispatchPropsType => {
     return {
-        updateNewDialogText: (text:string)=>{
-            dispatch(updateNewMessagTextAC(text))
-        },
-        addMessag:()=>{
+        addMessag:(newMessagText:string)=>{
            // dispatch(addMessagAC(store.getState().dialogsPage.newMessagText))
-            dispatch(addMessagAC())
+            dispatch(addMessagAC(newMessagText))
         },
     }
 }
