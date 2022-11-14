@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {profileApi} from "../../api/api";
+import {setErrorAC} from "./auth-reducer";
 
 export type  PostType = {
     id: number
@@ -17,7 +18,7 @@ let initialState = {
     // newPostText: '',
      profile: {
          aboutMe:'',
-         userId: 2,
+         userId: 24664,
          lookingForAJob: false,
          lookingForAJobDescription: '',
          fullName: '',
@@ -123,7 +124,7 @@ export const setUserProfileTC = (userId:number) => (dispatch:Dispatch)=>{
 }
 
 export const getStatusTC = (userId:number) =>(dispatch:Dispatch)=> {
-//debugger
+   // debugger
     profileApi.getStatus(userId)
         .then((res)=>{
            // debugger
@@ -139,6 +140,12 @@ export const updateStatusTC = (status:string) =>(dispatch:Dispatch)=> {
            // debugger
             if (res.data.resultCode ===0){
                 dispatch(setStatusAC(status))
+            }else {
+                if (res.data.messages.length){
+                    dispatch(setErrorAC(res.data.messages[0]))
+                }else {
+                    dispatch(setErrorAC('произошла ошибка'))
+                }
             }
         })
 

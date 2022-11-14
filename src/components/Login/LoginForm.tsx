@@ -1,6 +1,9 @@
 import {useFormik} from "formik";
 import {useDispatch} from "react-redux";
 import {setIsLoggedInTC} from "../redux/auth-reducer";
+import {LoginParamsType} from "../../api/api";
+
+
 
 
 export type LoginFormPropsType = {
@@ -34,6 +37,8 @@ const validate = (values:any) => {
     return errors;
 };
 
+
+
 export const LoginForm = (props: LoginFormPropsType) => {
     const dispatch = useDispatch()
 
@@ -44,13 +49,16 @@ export const LoginForm = (props: LoginFormPropsType) => {
             rememberMe: false
         },
         validate,
-        onSubmit: values => {
-           // debugger
+        onSubmit: (values) => {
+            //debugger
             dispatch(setIsLoggedInTC(values))
-            //alert(JSON.stringify(values));
+            alert(JSON.stringify(values));
+            formik.resetForm()
         }
     })
 //debugger
+
+
     return (
         <form onSubmit={formik.handleSubmit}>
             <div>

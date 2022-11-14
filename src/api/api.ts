@@ -1,6 +1,6 @@
 import axios, {AxiosResponse} from "axios";
 import {UserType} from "../components/redux/users-reducer";
-import {GetAuthResponse} from "../components/Header/HeaderContainer";
+
 import {ProfileType} from "../components/redux/profile-reducer";
 
 
@@ -26,27 +26,32 @@ export const usersApi = {
 
 export const authApi = {
     me() {
-        return instance.get<GetAuthResponse>('auth/me')
-            .then((res) => {
-                return res.data
-            })
+        //debugger
+        return instance.get<ResponseType<MeResponseType>>(`auth/me`)
     },
     login(data:LoginParamsType){
-       // debugger
-        return instance.post<LoginParamsType, AxiosResponse<ResponseType<{userId:number}>>>('/auth/login', data)
+        // debugger
+         return instance.post<LoginParamsType, AxiosResponse<ResponseType<{userId:number}>>>(`/auth/login`, data)
+    },
+
+    logOut(){
+      //  debugger
+        return instance.delete<ResponseType>(`/auth/login`)
     }
 
 }
+
 
 export const profileApi = {
     getProfile(userId: number) {
         return instance.get<ProfileType>(`profile/${userId}`)
     },
     getStatus(userId:number){
+       // debugger
         return instance.get<any>(`profile/status/${userId}`)
     },
     updateStatus(status:string){
-        return instance.put<ResponseType>(`profile/status`, {status:status})
+        return instance.put<ResponseType>(`profile/status`, {status})
     }
 }
 
@@ -74,6 +79,12 @@ type GetUsersResponse = {
     error: string
 }
 
+type MeResponseType={
+    id: number
+    email: string
+    login: string
+}
+
 type ResponseType<D = {}> = {
     resultCode: number
     messages: Array<string>
@@ -83,6 +94,6 @@ type ResponseType<D = {}> = {
 export type LoginParamsType = {
     email:string
     password:string
-    rememberMe:boolean
+    rememberMe?:boolean
     captcha?:string
 }

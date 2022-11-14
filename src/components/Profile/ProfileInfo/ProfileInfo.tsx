@@ -6,6 +6,7 @@ import { ProfileStatus } from "../ProfileStatus";
 
 
 
+
 export type ProfileInfoPropsType = {
     profile:ProfileType
     status:string
@@ -43,7 +44,6 @@ function ProfileInfo(props: ProfileInfoPropsType) {
                     <br/>
                     <ProfileStatus status={props.status} updateStatusTC={props.updateStatusTC}/>
                 </div>
-
             </div>
         </div>
     )

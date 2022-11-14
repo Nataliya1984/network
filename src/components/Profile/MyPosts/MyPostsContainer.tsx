@@ -8,6 +8,7 @@ import {AppStateType} from "../../redux/redux-store";
 
 export type MapStatePropsType = {
     profilePage: InitialStateType
+    isAuth:boolean
 }
 
 export type MapDispatchPropsType = {
@@ -18,7 +19,8 @@ export type MyPostsPropsType = MapStatePropsType & MapDispatchPropsType
 
 let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        profilePage: state.profilePage
+        profilePage: state.profilePage,
+        isAuth:state.auth.isAuth
     }
 }
 

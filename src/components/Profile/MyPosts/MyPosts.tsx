@@ -5,6 +5,7 @@ import Post from "./Post/Post";
 import {addPostAC} from "../../redux/profile-reducer";
 import {MyPostsPropsType} from "./MyPostsContainer";
 import {useFormik} from "formik";
+import {Navigate} from "react-router-dom";
 
 
 export const MyPosts = (props: MyPostsPropsType) => {
@@ -14,6 +15,10 @@ export const MyPosts = (props: MyPostsPropsType) => {
 
     let postsElement = state.post.map((p: any) => <Post key={p.id} id={p.id} message={p.message}
                                                         likesCount={p.likesCount}/>);
+
+    if (props.isAuth === false){
+        return <Navigate to={'/login'}/>
+    }
 
 
     return (

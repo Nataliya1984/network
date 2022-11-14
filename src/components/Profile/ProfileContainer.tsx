@@ -10,7 +10,8 @@ import {compose} from "redux";
 export type MapStateUserProfileToPropsType = {
     profile: ProfileType
     status: string
-    //   isAuth:boolean
+    authorizedUserId:any
+    isAuth:boolean
 }
 
 export type MapDispatchProfilePropsType = {
@@ -46,6 +47,13 @@ class ProfileContainer extends React.Component<PropsType & { router: WithRouterP
 
     componentDidMount() {
         let userId = this.props.router.params.userId
+
+        if (!userId){
+            //пробрасываем наш id
+            userId = this.props.authorizedUserId
+           //  userId = '24664'
+        }
+       // debugger
         this.props.setUserProfileTC(userId)
         this.props.getStatusTC(userId)
         this.props.updateStatusTC(this.props.status)
@@ -61,9 +69,7 @@ class ProfileContainer extends React.Component<PropsType & { router: WithRouterP
     }
 
     render() {
-        // if (this.props.isAuth===false){
-        //     return <Navigate to={'/login'}/>
-        // }
+
         return (
             <Profile {...this.props} profile={this.props.profile} status={this.props.status}
                      updateStatusTC={this.props.updateStatusTC}/>
@@ -76,7 +82,9 @@ class ProfileContainer extends React.Component<PropsType & { router: WithRouterP
 export let mapStateToProps = (state: AppStateType): MapStateUserProfileToPropsType => {
     return {
         profile: state.profilePage.profile,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        authorizedUserId:state.auth.id,
+        isAuth:state.auth.isAuth
     }
 }
 
@@ -87,16 +95,3 @@ export default compose<React.ComponentType>(
 )
 (ProfileContainer)
 
-// const AuthRedirectComponent = withAuthRedirect(ProfileContainer)
-//
-// export let mapStateToProps = (state:AppStateType):MapStateUserProfileToPropsType =>{
-//     return {
-//         profile:state.profilePage.profile,
-//     }
-// }
-//
-// const WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
-//
-// export default connect(mapStateToProps, {
-//     setUserProfileTC
-// }) (withRouter<any>(WithUrlDataContainerComponent));
