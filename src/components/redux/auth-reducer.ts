@@ -6,7 +6,9 @@ const initialState: InitialStateType = {
     email: null,
     login: null,
     isAuth: false,
-    error: null
+    error: null,
+    // создаем еще один флаг для нашей компоненты (крутилка)
+    // isInitialized:false
 }
 
 export type InitialStateType = {
@@ -15,6 +17,7 @@ export type InitialStateType = {
     login: null | string
     isAuth: boolean
     error: null | string
+
 }
 
 export const authReducer = (state: InitialStateType = initialState, action: authReducerType): InitialStateType => {
@@ -66,12 +69,15 @@ export const setErrorAC = (error:null|string) => {
 
 
 export const setAuthUserDataTC = () => (dispatch: Dispatch) => {
-    authApi.me()
+  return authApi.me()
         .then((res) => {
             if (res.data.resultCode === 0) {
-                let {id, email, login} = res.data.data
-                dispatch(setAuthUserDataAC({id, email, login}))
+                // let {id, email, login} = res.data.data
+                // dispatch(setAuthUserDataAC({id, email, login}))
+                dispatch(setAuthUserDataAC(res.data.data))
 
+                // //?????????????
+                 dispatch(setIsLoggedInAC(true))
             }
         })
 }
@@ -79,21 +85,6 @@ export const setAuthUserDataTC = () => (dispatch: Dispatch) => {
 export const setIsLoggedInTC = (data: LoginParamsType) => (dispatch: Dispatch) => {
 //debugger
     authApi.login(data)
-        // .then((res) => {
-        //     //   debugger
-        //     if (res.data.resultCode === 0) {
-        //         // dispatch(setIsLoggedInAC(true))
-        //         dispatch(setIsLoggedInAC(true))
-        //     } else {
-        //         if (res.data.messages.length){
-        //             dispatch(setErrorAC(res.data.messages[0]))
-        //         }else{
-        //             dispatch(setErrorAC('произошла ошибка'))
-        //         }
-        //
-        //     }
-        // })
-
         .then((res) => {
             //   debugger
             if (res.data.resultCode === 0) {

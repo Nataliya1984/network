@@ -3,7 +3,7 @@ import Profile from "./Profile";
 import {connect} from "react-redux";
 import {AppStateType} from "../redux/redux-store";
 import {getStatusTC, ProfileType, setUserProfileTC, updateStatusTC} from "../redux/profile-reducer";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {Navigate, useLocation, useNavigate, useParams} from "react-router-dom";
 import {compose} from "redux";
 
 
@@ -51,7 +51,10 @@ class ProfileContainer extends React.Component<PropsType & { router: WithRouterP
         if (!userId){
             //пробрасываем наш id
             userId = this.props.authorizedUserId
-           //  userId = '24664'
+            // userId = '24664'
+            if (!userId){
+                return <Navigate to={'/login'}/>
+            }
         }
        // debugger
         this.props.setUserProfileTC(userId)
