@@ -154,6 +154,8 @@ export const toggleIsFollowingProgressAC = (isFetching:boolean, userId:number) =
 export const getUsersTC = (currentPage:number, pageSize:number) => (dispatch:Dispatch) => {
 
     dispatch(toggleIsFetching(true))
+    //изменяем страницу при нажатии
+    dispatch(setCurrentPage(currentPage))
 
     usersApi.getUsers(currentPage, pageSize)
         .then((data) => {

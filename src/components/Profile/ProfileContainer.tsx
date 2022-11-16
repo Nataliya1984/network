@@ -72,7 +72,7 @@ class ProfileContainer extends React.Component<PropsType & { router: WithRouterP
     }
 
     render() {
-
+       // console.log('произошла перерисовка')
         return (
             <Profile {...this.props} profile={this.props.profile} status={this.props.status}
                      updateStatusTC={this.props.updateStatusTC}/>
@@ -83,6 +83,7 @@ class ProfileContainer extends React.Component<PropsType & { router: WithRouterP
 }
 
 export let mapStateToProps = (state: AppStateType): MapStateUserProfileToPropsType => {
+   // console.log('profile изменился')
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,

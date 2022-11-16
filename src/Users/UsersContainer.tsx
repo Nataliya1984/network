@@ -1,22 +1,22 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    follow, followTC, getUsersTC,
+     followTC, getUsersTC,
     InitialStateType,
     setCurrentPage,
-    setTotalUsersCount,
-    setUsers,
-    toggleIsFetching,
-    toggleIsFollowingProgressAC,
-    unFollow, unFollowTC,
-    UserType
+     unFollowTC,
 } from "../components/redux/users-reducer";
 import {AppStateType} from "../components/redux/redux-store";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
-import {usersApi} from "../api/api";
-import {withAuthRedirect} from "../components/HOC/AuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage, getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUserCount,
+    getUsers
+} from "../components/redux/users-selectors";
 
 
 export type MapStateUserToPropsType = {
@@ -90,17 +90,31 @@ export class UsersContainer extends React.Component<MapStateUserToPropsType & Ma
     }
 }
 
-export let mapStateToProps = (state: AppStateType): MapStateUserToPropsType => {
-    return {
-        usersPage: state.usersPage,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
+// 81(1) рефакторим мапстейттопропс, создаем для селекторов файл в редьюсерах users-selectors.ts
 
-    }
-}
+// export let mapStateToProps = (state: AppStateType): MapStateUserToPropsType => {
+//     return {
+//         usersPage: state.usersPage,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress,
+//
+//     }
+// }
+
+ export let mapStateToProps = (state: AppStateType): MapStateUserToPropsType => {
+     return {
+         // 80(3) заменяем значения селекторами
+         usersPage: getUsers(state),
+         pageSize: getPageSize(state),
+         totalUsersCount: getTotalUserCount(state),
+         currentPage: getCurrentPage(state),
+         isFetching: getIsFetching(state),
+         followingInProgress: getFollowingInProgress(state),
+     }
+ }
 
 //let withRedirect = withAuthRedirect(UsersContainer)
 
@@ -114,7 +128,7 @@ export let mapStateToProps = (state: AppStateType): MapStateUserToPropsType => {
 
 
 export default compose<React.ComponentType>(
-    withAuthRedirect,
+    //withAuthRedirect,
     connect(mapStateToProps, {setCurrentPage, getUsersTC, followTC, unFollowTC})
 )
 (UsersContainer)
