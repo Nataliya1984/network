@@ -3,7 +3,7 @@ import classes from "./ProfileInfo.module.css";
 
 type ProfileStatusPropsType = {
     status: string
-    updateStatusTC:(status:string)=>any
+     updateStatusTC:(status:string)=>any
 }
 
 
@@ -29,6 +29,7 @@ export class ProfileStatus extends React.Component <ProfileStatusPropsType> {
             editMode:false
         })
         //для обновления статуса,при деактивации вызвать колбэк для обновления статуса
+        debugger
         this.props.updateStatusTC(this.state.status)
     }
 

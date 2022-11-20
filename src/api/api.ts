@@ -1,10 +1,6 @@
 import axios, {AxiosResponse} from "axios";
 import {UserType} from "../components/redux/users-reducer";
 
-import {ProfileType} from "../components/redux/profile-reducer";
-
-
-
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -17,10 +13,12 @@ const instance = axios.create({
 
 export const usersApi = {
     getUsers(currentPage: number, pageSize: number) {
+       // debugger
         return instance.get<GetUsersResponse>(`users?page=${currentPage}&count=${pageSize}`)
-            .then((res) => {
-                return res.data
-            })
+            // .then((res) => {
+            //     debugger
+            //     return res.data
+            // })
     }
 }
 
@@ -44,14 +42,16 @@ export const authApi = {
 
 export const profileApi = {
     getProfile(userId: number) {
-        return instance.get<ProfileType>(`profile/${userId}`)
+       // debugger
+        return instance.get<GetProfileResponseType>(`profile/${userId}`)
     },
     getStatus(userId:number){
        // debugger
-        return instance.get<any>(`profile/status/${userId}`)
+        return instance.get<string, AxiosResponse<string>>(`profile/status/${userId}`)
     },
     updateStatus(status:string){
-        return instance.put<ResponseType>(`profile/status`, {status})
+       // debugger
+        return instance.put<string, AxiosResponse<ResponseType>>(`profile/status`, {status})
     }
 }
 
@@ -96,4 +96,27 @@ export type LoginParamsType = {
     password:string
     rememberMe?:boolean
     captcha?:string
+}
+
+export type GetProfileResponseType = {
+    aboutMe: string,
+    contacts: {
+        facebook: string,
+        website: string,
+        vk: string,
+        twitter: string,
+        instagram: string,
+        youtube: string,
+        github: string,
+        mainLink: string
+    },
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string,
+    fullName: string,
+    userId: number,
+    photos: {
+        small: string,
+        large: string
+    },
+    status:string
 }

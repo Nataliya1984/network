@@ -2,6 +2,7 @@ import {Dispatch} from "redux";
 import {profileApi} from "../../api/api";
 import {setErrorAC} from "./auth-reducer";
 
+
 export type  PostType = {
     id: number
     message: string
@@ -41,27 +42,22 @@ let initialState = {
 
 }
 
-export type ProfileType = {
-    aboutMe: string,
-    contacts: {
-        facebook: string,
-        website: string,
-        vk: string,
-        twitter: string,
-        instagram: string,
-        youtube: string,
-        github: string,
-        mainLink: string
-    },
-    lookingForAJob: boolean,
-    lookingForAJobDescription: string,
-    fullName: string,
-    userId: number,
-    photos: {
-        small: string,
-        large: string
-    }
-}
+
+// let initialState = {
+//     post: [
+//         {id: 1, message: 'Hi, how are you?', likesCount: 5},
+//         {id: 2, message: "It's my first post", likesCount: 4},
+//     ] as Array<PostType>,
+//     // newPostText: '',
+//     profile:{},
+//     status:''
+//
+// }
+
+
+
+
+
 
 export const profileReducer = (state: InitialStateType = initialState, action: ProfileReducerType): InitialStateType => {
 
@@ -73,7 +69,7 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
         }
         case "SET-USER-PROFILE": {
            // debugger
-           return {...state, profile:action.profile}
+           return {...state, profile: action.profile}
         }
         case "SET-STATUS":{
             return {...state, status:action.status}
@@ -98,7 +94,7 @@ export const addPostAC = (newPostText:string) => {
     } as const
 }
 
-export const setUserProfile = (profile: ProfileType) => {
+export const setUserProfile = (profile: any) => {
     return {
         type: 'SET-USER-PROFILE',
         profile: profile
@@ -134,10 +130,10 @@ export const getStatusTC = (userId:number) =>(dispatch:Dispatch)=> {
 }
 
 export const updateStatusTC = (status:string) =>(dispatch:Dispatch)=> {
-   // debugger
+  // debugger
     profileApi.updateStatus(status)
         .then((res)=>{
-           // debugger
+         //   debugger
             if (res.data.resultCode ===0){
                 dispatch(setStatusAC(status))
             }else {

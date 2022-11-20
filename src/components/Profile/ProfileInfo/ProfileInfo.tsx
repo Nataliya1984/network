@@ -1,14 +1,14 @@
 import React from "react";
 import classes from "./ProfileInfo.module.css";
 import {Preloader} from "../../../common/Preloader/Preloader";
-import {ProfileType} from "../../redux/profile-reducer";
+import {ProfileStatusWithHooks} from "../ProfileStatusWithHooks";
 import { ProfileStatus } from "../ProfileStatus";
 
 
 
 
 export type ProfileInfoPropsType = {
-    profile:ProfileType
+    profile:any
     status:string
     updateStatusTC:(status:string)=>any
 }
@@ -42,7 +42,10 @@ function ProfileInfo(props: ProfileInfoPropsType) {
 
                 <div>
                     <br/>
-                    <ProfileStatus status={props.status} updateStatusTC={props.updateStatusTC}/>
+                    <ProfileStatusWithHooks status={props.status}
+                                            updateStatusTC={props.updateStatusTC}
+                    />
+                    {/*<ProfileStatus status={props.status} updateStatusTC={props.updateStatusTC}/>*/}
                 </div>
             </div>
         </div>

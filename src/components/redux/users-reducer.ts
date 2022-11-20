@@ -159,9 +159,9 @@ export const getUsersTC = (currentPage:number, pageSize:number) => (dispatch:Dis
 
     usersApi.getUsers(currentPage, pageSize)
         .then((data) => {
-            // debugger
-            dispatch(setUsers(data.items))
-            dispatch(setTotalUsersCount(data.totalCount))
+           //  debugger
+            dispatch(setUsers(data.data.items))
+            dispatch(setTotalUsersCount(data.data.totalCount))
             dispatch(toggleIsFetching(false))
         })
 }

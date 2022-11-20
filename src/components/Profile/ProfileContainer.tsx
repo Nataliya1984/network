@@ -2,13 +2,13 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {AppStateType} from "../redux/redux-store";
-import {getStatusTC, ProfileType, setUserProfileTC, updateStatusTC} from "../redux/profile-reducer";
+import {getStatusTC, setUserProfileTC, updateStatusTC} from "../redux/profile-reducer";
 import {Navigate, useLocation, useNavigate, useParams} from "react-router-dom";
 import {compose} from "redux";
 
 
 export type MapStateUserProfileToPropsType = {
-    profile: ProfileType
+    profile: any
     status: string
     authorizedUserId:any
     isAuth:boolean
@@ -47,7 +47,6 @@ class ProfileContainer extends React.Component<PropsType & { router: WithRouterP
 
     componentDidMount() {
         let userId = this.props.router.params.userId
-
         if (!userId){
             //пробрасываем наш id
             userId = this.props.authorizedUserId
@@ -56,10 +55,11 @@ class ProfileContainer extends React.Component<PropsType & { router: WithRouterP
                 return <Navigate to={'/login'}/>
             }
         }
-       // debugger
+
         this.props.setUserProfileTC(userId)
+       // debugger
         this.props.getStatusTC(userId)
-        this.props.updateStatusTC(this.props.status)
+      //  this.props.updateStatusTC(this.props.status)
 
 
         // let userId = this.props.router.params.userId
@@ -75,7 +75,8 @@ class ProfileContainer extends React.Component<PropsType & { router: WithRouterP
        // console.log('произошла перерисовка')
         return (
             <Profile {...this.props} profile={this.props.profile} status={this.props.status}
-                     updateStatusTC={this.props.updateStatusTC}/>
+                     updateStatusTC={this.props.updateStatusTC}
+        />
         )
     }
 
@@ -93,7 +94,8 @@ export let mapStateToProps = (state: AppStateType): MapStateUserProfileToPropsTy
 }
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {setUserProfileTC, getStatusTC, updateStatusTC}),
+    connect(mapStateToProps, {setUserProfileTC, getStatusTC, updateStatusTC
+    }),
     withRouter,
     // withAuthRedirect //нельзя попадать на страницу профиля незалогиненому пользователю
 )
