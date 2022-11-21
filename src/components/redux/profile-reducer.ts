@@ -15,6 +15,8 @@ let initialState = {
     post: [
         {id: 1, message: 'Hi, how are you?', likesCount: 5},
         {id: 2, message: "It's my first post", likesCount: 4},
+        {id: 3, message: "2 post", likesCount: 4},
+        {id: 4, message: "3 post", likesCount: 4},
     ] as Array<PostType>,
     // newPostText: '',
      profile: {

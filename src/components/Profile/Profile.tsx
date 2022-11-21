@@ -11,8 +11,8 @@ export type ProfilePropsType={
     updateStatusTC:(status:string)=>any
 }
 
-function Profile(props:ProfilePropsType) {
-
+const Profile = React.memo((props:ProfilePropsType) =>{
+   // console.log('render Profile')
     return (
         <div>
             <ProfileInfo profile={props.profile} status={props.status}
@@ -22,6 +22,6 @@ function Profile(props:ProfilePropsType) {
         </div>
     )
 
-}
+})
 
 export default Profile;

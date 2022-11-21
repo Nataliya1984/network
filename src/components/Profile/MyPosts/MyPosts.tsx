@@ -1,22 +1,26 @@
-import React, {KeyboardEvent, ChangeEvent, useRef} from "react";
+import React from "react";
 import './MyPosts.module.css';
 import classes from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {addPostAC} from "../../redux/profile-reducer";
 import {MyPostsPropsType} from "./MyPostsContainer";
 import {useFormik} from "formik";
 import {Navigate} from "react-router-dom";
+import {PostType} from "../../redux/profile-reducer";
 
 
-export const MyPosts = (props: MyPostsPropsType) => {
+export const MyPosts = React.memo((props: MyPostsPropsType) => {
 
+    console.log('RENDER')
     //let state = props.store.getState().profilePage
-    let state = props.profilePage
+   // let state = props.profilePage
+   //  let postsElement = [...state.post].reverse().map((p: any) => <Post key={p.id} id={p.id} message={p.message}
+   //                                                      likesCount={p.likesCount}/>);
 
-    let postsElement = state.post.map((p: any) => <Post key={p.id} id={p.id} message={p.message}
-                                                        likesCount={p.likesCount}/>);
-
-    if (props.isAuth === false){
+    
+   let postsElement = [...props.post].reverse().map((p: any) => <Post key={p.id} id={p.id} message={p.message}
+                                                            likesCount={p.likesCount}/>);
+//debugger
+    if (props.isAuth === false) {
         return <Navigate to={'/login'}/>
     }
 
@@ -38,7 +42,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
         </div>
 
     )
-}
+})
 
 
 //1. выносим в отдельную компоненту нашу форму
@@ -51,29 +55,27 @@ type FormikErrorType = {
     newPostText?: string
 }
 
-const validate = (values: any) => {
-
-    const errors: FormikErrorType = {};
-
-    if (!values.newPostText) {
-        errors.newPostText = 'Заполните поле ввода';
-    } else if (values.newPostText.length < 5) {
-        errors.newPostText = 'сообщение должно быть не менее 5 символов';
-    } else if (values.newPostText.length > 30) {
-        errors.newPostText = 'сообщение не должно певышать 30 символов';
-    }
-
-
-    return errors;
-};
-
-const AddPostForm = (props: AddPostFormType) => {
+const AddPostForm = React.memo((props: AddPostFormType) => {
     const formik = useFormik({
         initialValues: {
             newPostText: '',
         },
         // 2. onSubmit, когда форма соберет наши данные, форма вызовет колбэк который мы ей передадим, назовем его addPost, и в этот колбэк прийдут values
-        validate,
+        validate:(values: any) => {
+
+            const errors: FormikErrorType = {};
+
+            if (!values.newPostText) {
+                errors.newPostText = 'Заполните поле ввода';
+            } else if (values.newPostText.length < 5) {
+                errors.newPostText = 'сообщение должно быть не менее 5 символов';
+            } else if (values.newPostText.length > 30) {
+                errors.newPostText = 'сообщение не должно певышать 30 символов';
+            }
+
+
+            return errors;
+        },
         onSubmit: values => {
             alert(JSON.stringify(values));
             props.addPost(values.newPostText)
@@ -88,11 +90,11 @@ const AddPostForm = (props: AddPostFormType) => {
             <br/>
 
             <textarea style={{outline: 'none'}}
-                      // name="newPostText"
-                      // onChange={formik.handleChange}
-                      // value={formik.values.newPostText}
-                      // onBlur={formik.handleBlur}
-                        placeholder={'Enter your message'}
+                // name="newPostText"
+                // onChange={formik.handleChange}
+                // value={formik.values.newPostText}
+                // onBlur={formik.handleBlur}
+                      placeholder={'Enter your message'}
                       {...formik.getFieldProps('newPostText')}
             />
 
@@ -103,7 +105,7 @@ const AddPostForm = (props: AddPostFormType) => {
             </div>
         </form>
     )
-}
+})
 
 //3 форма засобмитится, к нам прийдет values, в values будет сидеть newPostText и мы его передаем в addPost
 

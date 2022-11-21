@@ -9,7 +9,7 @@ export type PostPropsType = {
     id: number,
 }
 
-function Post(props: PostPropsType) {
+const Post=React.memo((props: PostPropsType)=> {
 
     return (
         <div className={classes.posts}>
@@ -22,6 +22,6 @@ function Post(props: PostPropsType) {
             </div>
         </div>
     )
-}
+})
 
 export default Post;
