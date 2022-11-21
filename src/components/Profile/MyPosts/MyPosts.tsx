@@ -16,7 +16,7 @@ export const MyPosts = React.memo((props: MyPostsPropsType) => {
    //  let postsElement = [...state.post].reverse().map((p: any) => <Post key={p.id} id={p.id} message={p.message}
    //                                                      likesCount={p.likesCount}/>);
 
-    
+
    let postsElement = [...props.post].reverse().map((p: any) => <Post key={p.id} id={p.id} message={p.message}
                                                             likesCount={p.likesCount}/>);
 //debugger

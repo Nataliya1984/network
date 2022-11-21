@@ -76,17 +76,21 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
         case "SET-STATUS":{
             return {...state, status:action.status}
         }
+        case "DELETE-POST":{
+            return {...state, post: [...state.post.filter(el => el.id !== action.postId)] }
+        }
         default:
             return state
     }
 
 }
 
-export type ProfileReducerType = addPostACType | SetUserProfileType |SetStatusACType
+export type ProfileReducerType = addPostACType | SetUserProfileType |SetStatusACType|DeletePostACType
 
 export type addPostACType = ReturnType<typeof addPostAC>
 export type SetUserProfileType = ReturnType<typeof setUserProfile>
 export type SetStatusACType = ReturnType<typeof setStatusAC>
+export type DeletePostACType = ReturnType<typeof deletePostAC>
 
 //7 передаем в экшен крейтор newPostText
 export const addPostAC = (newPostText:string) => {
@@ -107,6 +111,13 @@ export const setStatusAC = (status:string) => {
   return{
       type:'SET-STATUS',
       status
+  }as const
+}
+
+export const deletePostAC = (postId:number) => {
+  return{
+      type:'DELETE-POST',
+      postId
   }as const
 }
 
