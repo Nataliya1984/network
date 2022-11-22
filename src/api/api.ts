@@ -58,15 +58,15 @@ export const profileApi = {
 export const followApi = {
     getFollow(id: number) {
         return instance.delete<ResponseType>(`follow/${id}`)
-            .then((res) => {
-                return res.data
-            })
+            // .then((res) => {
+            //     return res.data
+            // })
     },
     deleteFollow(id: number) {
         return instance.post<ResponseType>(`follow/${id}`)
-            .then((res) => {
-                return res.data
-            })
+            // .then((res) => {
+            //     return res.data
+            // })
     }
 }
 

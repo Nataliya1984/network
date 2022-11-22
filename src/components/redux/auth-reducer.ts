@@ -22,16 +22,16 @@ export type InitialStateType = {
 
 export const authReducer = (state: InitialStateType = initialState, action: authReducerType): InitialStateType => {
     switch (action.type) {
-        case "SET-USER-DATA": {
+        case "auth/SET-USER-DATA": {
             //debugger
             return {...state, ...action.data}
             //      return {...state, ...action.data, isAuth:true}
         }
 
-        case "IS-LOGGED-IN": {
+        case "auth/IS-LOGGED-IN": {
             return {...state, isAuth: action.isAuth}
         }
-        case "SET-ERROR":{
+        case "auth/SET-ERROR":{
             return {...state, error:action.error}
         }
 
@@ -49,18 +49,18 @@ export type SetErrorACType = ReturnType<typeof setErrorAC>
 
 export const setAuthUserDataAC = (data: { id: number, email: string, login: string }) => {
     return {
-        type: 'SET-USER-DATA',
+        type: 'auth/SET-USER-DATA',
         data
     } as const
 }
 
-export const setIsLoggedInAC = (isAuth: boolean) => ({type: 'IS-LOGGED-IN', isAuth} as const)
+export const setIsLoggedInAC = (isAuth: boolean) => ({type: 'auth/IS-LOGGED-IN', isAuth} as const)
 
 //2 создаем AC для обработки ошибок
 
 export const setErrorAC = (error:null|string) => {
   return{
-      type:'SET-ERROR',
+      type:'auth/SET-ERROR',
       error
   }as const
 }
@@ -68,24 +68,38 @@ export const setErrorAC = (error:null|string) => {
 //thunk
 
 
-export const setAuthUserDataTC = () => (dispatch: Dispatch) => {
-  return authApi.me()
-        .then((res) => {
+// export const setAuthUserDataTC = () => (dispatch: Dispatch) => {
+//   return authApi.me()
+//         .then((res) => {
+//             if (res.data.resultCode === 0) {
+//                 // let {id, email, login} = res.data.data
+//                 // dispatch(setAuthUserDataAC({id, email, login}))
+//                 dispatch(setAuthUserDataAC(res.data.data))
+//
+//                 // //?????????????
+//                  dispatch(setIsLoggedInAC(true))
+//             }
+//         })
+// }
+
+export const setAuthUserDataTC = () => async (dispatch: Dispatch) => {
+   let res = await authApi.me();
+
             if (res.data.resultCode === 0) {
                 // let {id, email, login} = res.data.data
                 // dispatch(setAuthUserDataAC({id, email, login}))
                 dispatch(setAuthUserDataAC(res.data.data))
 
                 // //?????????????
-                 dispatch(setIsLoggedInAC(true))
+                dispatch(setIsLoggedInAC(true))
             }
-        })
+
 }
 
-export const setIsLoggedInTC = (data: LoginParamsType) => (dispatch: Dispatch) => {
+export const setIsLoggedInTC = (data: LoginParamsType) => async (dispatch: Dispatch) => {
 //debugger
-    authApi.login(data)
-        .then((res) => {
+   let res = await authApi.login(data)
+
             //   debugger
             if (res.data.resultCode === 0) {
                 // dispatch(setIsLoggedInAC(true))
@@ -98,15 +112,14 @@ export const setIsLoggedInTC = (data: LoginParamsType) => (dispatch: Dispatch) =
                 }
 
             }
-        })
 }
 
-export const logOutTC = () => (dispatch: Dispatch) => {
-    authApi.logOut()
-        .then((res) => {
+export const logOutTC = () => async (dispatch: Dispatch) => {
+   let res = await authApi.logOut()
+
             if (res.data.resultCode === 0) {
                 // dispatch(setIsLoggedInAC(true))
                 dispatch(setIsLoggedInAC(false))
             }
-        })
+
 }

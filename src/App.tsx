@@ -17,8 +17,6 @@ import {setInitializedTC} from "./components/redux/app-reducer";
 import {AppStateType} from "./components/redux/redux-store";
 import {Preloader} from "./common/Preloader/Preloader";
 
-
-
 //1(80).делаем классовую компоненту арр
 // ctrl+alt+shift+t (выбираем convert to class component) (заменяем функуиональную компоненту на классовую)
 // 2(переносим сюда me запрос)
