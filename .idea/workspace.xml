@@ -5,19 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="74c5f86b-1cf0-4dc6-8ce5-827284704335" name="Changes" comment=" 20.01">
-      <change afterPath="$PROJECT_DIR$/src/utils/object-helpers.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Users/User.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/common/Paginator/Paginator.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/common/Paginator/Paginator.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Login/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/Login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Login/LoginForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/LoginForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/redux/app-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/redux/app-reducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/redux/auth-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/redux/auth-reducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/redux/dialogs-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/redux/dialogs-reducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/redux/profile-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/redux/profile-reducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/redux/redux-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/redux/redux-store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/redux/users-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/redux/users-reducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/validators/validators.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/validators/validators.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Users/Users.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Users/Users.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Users/Users.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Users/Users.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Users/UsersContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Users/UsersContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/redux/users-selectors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/redux/users-selectors.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +53,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/redux" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Users" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -69,13 +65,14 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\it-camasutra_cursy\social-network\src\Users" />
       <recent name="C:\it-camasutra_cursy\social-network\src\components\redux" />
       <recent name="C:\it-camasutra_cursy\social-network\src\components\Profile" />
       <recent name="C:\it-camasutra_cursy\social-network\src\components\Header" />
-      <recent name="C:\it-camasutra_cursy\social-network\src\Users" />
       <recent name="C:\it-camasutra_cursy\social-network\src\components\Profile\MyPosts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\it-camasutra_cursy\social-network\src\common\Paginator" />
       <recent name="C:\it-camasutra_cursy\social-network\src\utils\validators" />
       <recent name="C:\it-camasutra_cursy\social-network\src\components\Profile\MyPosts" />
     </key>
@@ -137,7 +134,7 @@
       <workItem from="1658435236159" duration="4957000" />
       <workItem from="1666207305152" duration="117040000" />
       <workItem from="1667593965196" duration="150085000" />
-      <workItem from="1668802481438" duration="43577000" />
+      <workItem from="1668802481438" duration="50720000" />
     </task>
     <servers />
   </component>

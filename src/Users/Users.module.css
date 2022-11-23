@@ -3,16 +3,16 @@
     height:100px ;
 }
 
-.selectedPage{
-    font-weight: bold;
-    padding-left:5px;
-    cursor: pointer;
-}
+/*.selectedPage{*/
+/*    font-weight: bold;*/
+/*    padding-left:5px;*/
+/*    cursor: pointer;*/
+/*}*/
 
-.selectedPagePadding{
-    padding-left:5px;
-    cursor: pointer;
-}
+/*.selectedPagePadding{*/
+/*    padding-left:5px;*/
+/*    cursor: pointer;*/
+/*}*/
 
 .loader{
     position: absolute;

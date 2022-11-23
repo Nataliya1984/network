@@ -11,12 +11,12 @@ export type ProfilePropsType={
     updateStatusTC:(status:string)=>any
 }
 
-const Profile = React.memo((props:ProfilePropsType) =>{
+const Profile = React.memo(({profile, status, updateStatusTC}:ProfilePropsType) =>{
    // console.log('render Profile')
     return (
         <div>
-            <ProfileInfo profile={props.profile} status={props.status}
-                         updateStatusTC={props.updateStatusTC}
+            <ProfileInfo profile={profile} status={status}
+                         updateStatusTC={updateStatusTC}
             />
             <MyPostsContainer/>
         </div>

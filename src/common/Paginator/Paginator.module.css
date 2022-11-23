@@ -1,0 +1,10 @@
+.selectedPage{
+    font-weight: bold;
+    padding-left:5px;
+    cursor: pointer;
+}
+
+.selectedPagePadding{
+    padding-left:5px;
+    cursor: pointer;
+}
