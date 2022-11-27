@@ -17,7 +17,6 @@ test('новый пост должен быть добавлен', ()=>{
 
     let action = addPostAC('пост добавлен')
 
-
     let newState = profileReducer(startState, action)
 
     expect( newState.post.length).toBe(5)
@@ -29,7 +28,6 @@ test('пост должен быть удален', ()=>{
 
     let action = deletePostAC(1)
 
-
     let newState = profileReducer(startState, action)
 
     expect( newState.post.length).toBe(3)
@@ -39,7 +37,6 @@ test('пост должен быть удален', ()=>{
 test('after deleting length should be decrement if id is incorrect ', ()=>{
 
     let action = deletePostAC(1000)
-
 
     let newState = profileReducer(startState, action)
 

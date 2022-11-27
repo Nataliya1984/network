@@ -1,33 +1,38 @@
-import React from 'react';
+import React, {lazy, Suspense} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
 import {Route, Routes} from 'react-router-dom';
-import News from "./components/News/News";
-import Music from "./components/Music/Music";
-import {Settings} from "./components/Settings/Settings";
-import UsersContainer from "./Users/UsersContainer";
-import ProfileContainer, {withRouter} from "./components/Profile/ProfileContainer";
+import {withRouter} from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import Login from "./components/Login/Login";
 import ErrorSnackbarContainer from "./common/ErrorSnackbar/ErrorSnackbarContainer";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {setInitializedTC} from "./components/redux/app-reducer";
 import {AppStateType} from "./components/redux/redux-store";
 import {Preloader} from "./common/Preloader/Preloader";
+// 'ленивая загрузка'
+const DialogsContainer = lazy(() => import('./components/Dialogs/DialogsContainer'));
+const ProfileContainer = lazy(() => import('./components/Profile/ProfileContainer'));
+const Login = lazy(() => import('./components/Login/Login'));
+const UsersContainer = lazy(() => import('./Users/UsersContainer'));
+const News = lazy(() => import('./components/News/News'));
+const Music = lazy(() => import('./components/Music/Music'));
+const Settings = lazy(() => import('./components/Settings/Settings'));
+
+
+
 
 //1(80).делаем классовую компоненту арр
 // ctrl+alt+shift+t (выбираем convert to class component) (заменяем функуиональную компоненту на классовую)
 // 2(переносим сюда me запрос)
 // 3 оборачиваем withRoure
 
- type MapDispatchPropsType = {
-     setInitializedTC:()=>void
+type MapDispatchPropsType = {
+    setInitializedTC: () => void
 }
 
-type MapStatePropsType={
-     initialized:boolean
+type MapStatePropsType = {
+    initialized: boolean
 }
 
 class App extends React.Component<MapDispatchPropsType & MapStatePropsType> {
@@ -44,43 +49,53 @@ class App extends React.Component<MapDispatchPropsType & MapStatePropsType> {
         //         })
 
     }
+
     render() {
         //возвращаем разметку после того, как проинициализировались
-        if (!this.props.initialized){
+        if (!this.props.initialized) {
             return <Preloader/>
         }
 
         return (
+
+
             <div className='app-wrapper'>
                 <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Routes>
-                        <Route path="/profile" element={<ProfileContainer/>}/>
-                        <Route path="/profile/:userId" element={<ProfileContainer/>}/>
-                        <Route path='/login/' element={<Login/>}/>
-                        <Route path='/dialogs/' element={<DialogsContainer/>}/>
-                        <Route path='/users/' element={<UsersContainer/>}/>
-                        <Route path='/news/' element={<News/>}/>
-                        <Route path='/music/' element={<Music/>}/>
-                        <Route path='/settings/' element={<Settings/>}/>
-                    </Routes>
+                    <Suspense fallback={<Preloader/>}>
+                        <Routes>
+                            <Route path="/profile" element={<ProfileContainer/>}/>
+                            <Route path="/profile/:userId" element={<ProfileContainer/>}/>
+                            <Route path='/login/' element={<Login/>}/>
+                            <Route path='/dialogs/'
+                                   element={<DialogsContainer/>}/>
+                            <Route path='/users/' element={<UsersContainer/>}/>
+                            <Route path='/news/' element={<News/>}/>
+                            <Route path='/music/' element={<Music/>}/>
+                            <Route path='/settings/' element={<Settings/>}/>
+                        </Routes>
+                    </Suspense>
                     <ErrorSnackbarContainer/>
                 </div>
             </div>
+
         );
     }
 }
 
-const mapStateToProps=(state:AppStateType):MapStatePropsType=>{
-     return{
-         initialized: state.app.initialized
-     }
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
+    return {
+        initialized: state.app.initialized
+    }
 }
 
 export default compose<React.ComponentType>(
     withRouter,
     connect(mapStateToProps, {
         setInitializedTC
-}))(App);
+    }))(App);
+
+
+
 

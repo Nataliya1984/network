@@ -19,6 +19,7 @@ export const Users = ({
                           followingInProgress,
                           followTC,
                           unFollowTC,
+                          portionSize
                       }: PropsType) => {
 
     // let pagesCount = Math.ceil(usersPage.totalUsersCount / usersPage.pageSize)
@@ -33,7 +34,7 @@ export const Users = ({
         <div>
 
             <Paginator onPageChanges={onPageChanges} pageSize={pageSize} currentPage={currentPage}
-                       totalUsersCount={totalUsersCount}/>
+                       totalUsersCount={totalUsersCount} portionSize={portionSize}/>
             <div>
                 {
                     users.map(el => {
