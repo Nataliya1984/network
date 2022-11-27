@@ -5,19 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="74c5f86b-1cf0-4dc6-8ce5-827284704335" name="Changes" comment=" 20.01">
-      <change afterPath="$PROJECT_DIR$/src/components/HOC/withSuspense.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Users/Users.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Users/Users.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Users/UsersContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Users/UsersContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/Paginator/Paginator.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/Paginator/Paginator.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/Paginator/Paginator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/Paginator/Paginator.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Settings/Settings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Settings/Settings.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/redux/profile-reducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/redux/profile-reducer.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/redux/redux-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/redux/redux-store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/redux/users-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/redux/users-reducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/redux/users-selectors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/redux/users-selectors.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
@@ -155,7 +144,8 @@
       <workItem from="1658435236159" duration="4957000" />
       <workItem from="1666207305152" duration="117040000" />
       <workItem from="1667593965196" duration="150085000" />
-      <workItem from="1668802481438" duration="71531000" />
+      <workItem from="1668802481438" duration="75658000" />
+      <workItem from="1669580904854" duration="3832000" />
     </task>
     <servers />
   </component>
