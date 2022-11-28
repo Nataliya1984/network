@@ -2,7 +2,7 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {AppStateType} from "../redux/redux-store";
-import {getStatusTC, setUserProfileTC, updateStatusTC} from "../redux/profile-reducer";
+import {getStatusTC, savePhotoTC, setUserProfileTC, updateStatusTC} from "../redux/profile-reducer";
 import {Navigate, useLocation, useNavigate, useParams} from "react-router-dom";
 import {compose} from "redux";
 
@@ -18,6 +18,7 @@ export type MapDispatchProfilePropsType = {
     setUserProfileTC: (userId: string) => any
     getStatusTC: (userId: string) => any
     updateStatusTC: (status: string) => any
+    savePhotoTC:(file:any)=>any
 }
 
 type PropsType = MapStateUserProfileToPropsType & MapDispatchProfilePropsType
@@ -44,8 +45,7 @@ export function withRouter<Props extends WithRouterProps>(Component: React.Compo
 
 class ProfileContainer extends React.Component<PropsType & { router: WithRouterProps }> {
 
-
-    componentDidMount() {
+    refreshProfile(){
         let userId = this.props.router.params.userId
         if (!userId){
             //пробрасываем наш id
@@ -57,30 +57,34 @@ class ProfileContainer extends React.Component<PropsType & { router: WithRouterP
         }
 
         this.props.setUserProfileTC(userId)
-       // debugger
+        // debugger
         this.props.getStatusTC(userId)
-      //  this.props.updateStatusTC(this.props.status)
+    }
 
 
-        // let userId = this.props.router.params.userId
-        //
-        //    profileApi.getProfile(userId)
-        //    .then((res) => {
-        //        // debugger
-        //        this.props.setUserProfile(res.data)
-        //    })
+    componentDidMount() {
+       this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: Readonly<PropsType & { router: WithRouterProps }>, prevState: Readonly<{}>, snapshot?: any) {
+        if (this.props.router.params.userId !== prevProps.router.params.userId){
+            this.refreshProfile()
+        }
+      //  this.refreshProfile()
     }
 
     render() {
        // console.log('произошла перерисовка')
         return (
-            <Profile {...this.props} profile={this.props.profile} status={this.props.status}
+            <Profile {...this.props}
+                     profile={this.props.profile}
+                     status={this.props.status}
                      updateStatusTC={this.props.updateStatusTC}
+                     isOwner={!this.props.router.params.userId}
+                     savePhoto={this.props.savePhotoTC}
         />
         )
     }
-
-
 }
 
 export let mapStateToProps = (state: AppStateType): MapStateUserProfileToPropsType => {
@@ -94,7 +98,7 @@ export let mapStateToProps = (state: AppStateType): MapStateUserProfileToPropsTy
 }
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {setUserProfileTC, getStatusTC, updateStatusTC
+    connect(mapStateToProps, {setUserProfileTC, getStatusTC, updateStatusTC, savePhotoTC
     }),
     withRouter,
     // withAuthRedirect //нельзя попадать на страницу профиля незалогиненому пользователю

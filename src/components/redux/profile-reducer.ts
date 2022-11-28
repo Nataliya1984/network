@@ -62,18 +62,22 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
         case "profile/DELETE-POST": {
             return {...state, post: [...state.post.filter(el => el.id !== action.postId)]}
         }
+        case "profile/SAVE-PHOTO":{
+            return {...state, profile: {...state.profile, photos: action.photos}}
+        }
         default:
             return state
     }
 
 }
 
-export type ProfileReducerType = addPostACType | SetUserProfileType | SetStatusACType | DeletePostACType
+export type ProfileReducerType = addPostACType | SetUserProfileType | SetStatusACType | DeletePostACType |SavePhotoACType
 
 export type addPostACType = ReturnType<typeof addPostAC>
 export type SetUserProfileType = ReturnType<typeof setUserProfile>
 export type SetStatusACType = ReturnType<typeof setStatusAC>
 export type DeletePostACType = ReturnType<typeof deletePostAC>
+export type SavePhotoACType = ReturnType<typeof savePhotoAC>
 
 //7 передаем в экшен крейтор newPostText
 export const addPostAC = (newPostText: string) => {
@@ -104,6 +108,13 @@ export const deletePostAC = (postId: number) => {
     } as const
 }
 
+export const savePhotoAC = (photos: {small: string, large: string}) => {
+    return {
+        type: 'profile/SAVE-PHOTO',
+        photos
+    } as const
+}
+
 //thunk
 
 export const setUserProfileTC = (userId: number) => async (dispatch: Dispatch) => {
@@ -127,6 +138,14 @@ export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => 
         } else {
             dispatch(setErrorAC('произошла ошибка'))
         }
+    }
+}
+
+export const savePhotoTC = (file: any) => async (dispatch: Dispatch) => {
+    let res = await profileApi.savePhoto(file)
+    if (res.data.resultCode === 0) {
+        dispatch(savePhotoAC(res.data.data))
+       // debugger
     }
 }
 

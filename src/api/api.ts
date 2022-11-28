@@ -52,6 +52,15 @@ export const profileApi = {
     updateStatus(status:string){
        // debugger
         return instance.put<string, AxiosResponse<ResponseType>>(`profile/status`, {status})
+    },
+    savePhoto(photoFile:string){
+        let formData = new FormData()
+        formData.append('image', photoFile)
+        return instance.put<string, AxiosResponse<ResponseType<{large:string, small:string}>>>(`profile/photo`, formData, {
+            headers:{
+                'Content-Type': 'multipart/form-data'
+            }
+        })
     }
 }
 

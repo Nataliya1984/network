@@ -6,3 +6,8 @@
 .descriptionBlock {
     padding: 10px;
 }
+
+.photo{
+    width: 120px;
+    border-radius: 60px;
+}

@@ -55,7 +55,6 @@ class App extends React.Component<MapDispatchPropsType & MapStatePropsType> {
         if (!this.props.initialized) {
             return <Preloader/>
         }
-
         return (
 
 
